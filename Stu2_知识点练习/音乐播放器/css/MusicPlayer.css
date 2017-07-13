@@ -1,0 +1,127 @@
+*{
+	margin:0;
+	padding: 0;
+}
+/* 文章样式 start */
+body{
+	min-width: 800px;
+	padding: 50px;
+	font: 16px/1.6 "宋体";
+	background-color: #f8f8f8;
+}
+h1{
+	position: fixed;
+	padding-bottom: 0.3rem;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 10;
+    font-size: 2rem;
+    border-bottom: 1px solid #eaecef;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,.4);
+}
+.article{
+	padding: 1rem;
+	background-color: #fff;
+}
+.article h2{
+	padding-top: 0.5rem;
+	padding-bottom: 0.3rem;
+	font-size: 1.6rem;
+}
+.article p{
+	text-indent: 2rem;
+}
+.article .answer>p{
+	font-size: 1.2rem;
+	font-family: "楷体";
+}
+.article pre{
+	margin: 0.4rem 0 1rem 2rem;
+}
+/* 文章样式 end */
+/* 播放器样式 start */
+.music-player{
+	width: 540px;
+	height: 150px;
+	margin-left: 2rem;
+	padding: 20px 30px;
+	border:2px solid #e2e0dd;
+	border-radius: 20px;
+	background-color: #eff0f0;
+	background-image: -webkit-linear-gradient(left,#c8c0bd,#eff0f0);
+	background-image: -moz-linear-gradient(left,#c8c0bd,#eff0f0);
+	background-image: -o-linear-gradient(left,#c8c0bd,#eff0f0);
+	background-image: -ms-linear-gradient(left,#c8c0bd,#eff0f0);
+}
+.music-player .fl{
+	width: 160px;
+	height: 100%;
+	float: left;
+}
+.music-player .fl>img{
+	width: 100%;
+	height: 100%;
+}
+.music-player .fr{
+	width: 360px;
+	height: 100%;
+	float: right;
+}
+.music-player .song-author{
+	height: 30px;
+	font: 24px/30px "Helvetica","Verdana","仿宋";
+	color: #848484;
+}
+.music-player .song-name{
+	height: 50px;
+	font: 32px/50px "Helvetica","Verdana","仿宋";
+	color: #5a5a58;
+}
+.music-player .song-progress{
+	height: 40px;
+	line-height: 40px;
+}
+.music-player .song-progress .song-progress-track{
+	position: relative;
+	top: 17px;
+	width: 100%;
+	height: 6px;
+	border-radius: 3px;
+	background-color: #d4cecb;
+	box-shadow: inset 1px 1px 1px #888,1px 1px 1px #fff;
+}
+.music-player .song-progress .song-progress-slider{
+	position: absolute;
+	left: 0;
+	top: -6px;
+	width: 16px;
+	height: 16px;
+	margin-left: -8px;
+	border-radius: 50%;
+	background-color: #dfdcda;
+	box-shadow: -1px -1px 1px #fff,1px 1px 1px #7e7e7e;
+}
+.music-player .song-progress .song-progress-time{
+	position: absolute;
+	right: 0;
+	top: 10px;
+	line-height: 16px;
+	color: #999;
+}
+.music-player .song-control{
+	line-height: 30px;
+	font-size: 24px;
+	text-align: center;
+}
+.music-player .song-control>span{
+	display: inline-block;
+	width: 30px;
+	margin: 0 16px;
+	text-align: center;
+	color: #666;
+	cursor: pointer;
+}
+/* 播放器样式 end */

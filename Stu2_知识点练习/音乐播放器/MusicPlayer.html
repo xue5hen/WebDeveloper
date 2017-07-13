@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简易音乐播放器</title>
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/highlight.min.css">
+	<link rel="stylesheet" href="css/MusicPlayer.css">
+</head>
+<body>
+	<h1>简易音乐播放器</h1>
+	<div class="article">
+		<section>
+			<h2>1、基本效果</h2>
+			<div class="music-player" id="app">
+				<div class="fl">
+					<img :src="songs[index].img" class="song-img">
+				</div>
+				<div class="fr">
+					<div class="song-author" v-text="songs[index].name"></div>
+					<div class="song-name" v-text="songs[index].author"></div>
+					<div class="song-progress">
+						<p class="song-progress-track" @click="setPosition($event)">
+							<span class="song-progress-slider" :style="{left:progressslider+'px'}" @click.stop></span>
+							<span class="song-progress-time" @click.stop>{{progresstime | formatTime}}/{{duration | formatTime}}</span>
+						</p>
+					</div>
+					<div class="song-control">
+						<span class="song-control-prev icon-backward" @click="prev()" title="上一首"></span>
+						<span :class="{'song-control-play':true,'icon-play':!playing,'icon-pause':playing}" @click="changePlayState()"></span>
+						<span class="song-control-next icon-forward" @click="next()" title="下一首"></span>
+					</div>
+				</div>
+			</div>	
+		</section>
+		<section>
+			<h2>2、相关问题</h2>
+			<p class="problem">1）出于功能需要，当使用audioObj.play()播放歌曲时，想通过duration属性获取歌曲的总时长，但总返回NaN。</p>
+			<div class="answer">
+				<p>这是因为刚开始播放时，歌曲的各项属性信息还未加载到，所以需要在初始时为audioObj绑定事件监听，按照audio提供的方法，在loadedmetadata事件触发时，音乐的各项参数都会加载完。</p>
+				<pre><!-- 
+				 --><code class="Javascript"><!-- 
+				 -->this.audioObj.onloadedmetadata = function(){
+<!-- 			 -->	_this.duration = _this.audioObj.duration;
+<!-- 			 -->	_this.play();
+<!-- 			 -->};<!-- 
+				 --></code><!-- 
+			 --></pre>
+			</div>
+			<p class="problem">2）当音乐播放完成时，需要执行一些操作。audio提供了两种方法（ended方法和ended属性），用哪种好呢？</p>
+			<div class="answer">
+				<p>自然是ended方法。起先因为要用计时器不断获取currentTime，我就想直接在计时器里顺便监测ended属性，但是因为计时器是每秒执行一次，所以可以明显看到界面上的文字图片都已经切换到下一首了，而滑块还会在进度条尾部停滞一下才跳回去。</p>
+			</div>
+			<p class="problem">3）还有一点值得注意，如果在进度条上绑定click事件以便调节音乐播放进度，需要在子元素上阻止冒泡（我的滑块和时间戳都在进度条内）。</p>
+			<div class="answer">
+				<p>因为我是用vue编写，所以比较简单，只需给滑块和时间戳添加 @click.stop 即可。</p>
+			</div>
+		</section>
+		<section>
+			<h2>3、代码优化</h2>
+			<p class="problem">1）在点击“上一首”、“下一首”按钮切歌时，需要确保序号不越界，起点最低被想到的是逻辑观感比较好理解的if语句，但它的代码观感却令人不爽。</p>
+			<div class="answer">
+				<p>① 如果是非循环播放，可使用Math.max和Math.min方法：</p>
+				<pre><!-- 
+				 --><code class="Javascript"><!-- 
+					 -->this.index = Math.max(--this.index,0);
+<!-- 				 -->this.index = Math.min(++this.index,this.total - 1);<!-- 
+				 --></code><!-- 
+			 --></pre>
+				<p>② 如果是循环播放，可使用取余法：</p>
+				<pre><!-- 
+				 --><code class="Javascript"><!-- 
+					 -->this.index = (--this.index + this.total) % this.total;
+<!-- 				 -->this.index = ++this.index % this.total;<!-- 
+				 --></code><!-- 
+			 --></pre>
+			</div>
+			<p class="problem">2）在切换“播放/暂停”时，往往也最容易想到if判断，但我觉得用三目代码更优雅一些。</p>
+			<div class="answer">
+				<pre><!-- 
+				 --><code class="Javascript"><!-- 
+					 -->this.playing?this.pause():this.play();<!-- 
+				 --></code><!-- 
+			 --></pre>
+				<p></p>
+			</div>
+		</section>
+	</div>
+	<script src="js/highlight.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script src="js/MusicPlayer.js"></script>
+</body>
+</html>
