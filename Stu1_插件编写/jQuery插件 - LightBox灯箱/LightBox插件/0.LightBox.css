@@ -1,0 +1,82 @@
+#LightBox-mask{
+	display: none;
+	position: fixed;
+	z-index: 9999;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: #000;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+#LightBox-popup{
+	display: none;
+	position: fixed;
+	z-index: 10000;
+	left: 50%;
+	width: 300px;
+	height: 300px;
+	border:5px solid #fff;
+	border-radius: 5px;
+	overflow: hidden;
+}
+#LightBox-popup .LightBox-pic-view{
+	position: relative;
+	height: 100%;
+	background: #fff url(0.LightBox-icon/loading.gif) no-repeat center center;
+}
+#LightBox-popup .LightBox-pic-view .LightBox-btn{
+	position: absolute;
+	z-index: 9;
+	top: 0;
+	width: 40%;
+	height: 100%;
+	background: url(0.LightBox-icon/transparent.png) repeat left top;	/* IE10及其以下版本，如果未设置元素背景图或背景色，那么无法触发元素绑定的事件（除非第一时间hover元素·元素绑定的是hover事件） */
+}
+#LightBox-popup .LightBox-pic-view .LightBox-prev-btn{
+	left: 0;
+}
+#LightBox-popup .LightBox-pic-view .LightBox-next-btn{
+	right: 0;
+}
+#LightBox-popup .LightBox-pic-view .LightBox-prev-btn-show{
+	background:url(0.LightBox-icon/prev.png) no-repeat left center;
+	cursor: pointer;
+}
+#LightBox-popup .LightBox-pic-view .LightBox-next-btn-show{
+	background:url(0.LightBox-icon/next.png) no-repeat right center;
+	cursor: pointer;
+}
+#LightBox-popup .LightBox-pic-view .LightBox-image{
+	display: block;
+}
+#LightBox-popup .LightBox-pic-caption{
+	position: relative;
+	z-index: 10;
+	margin-top: -60px;
+	background-color: rgba(0,0,0,0.5);
+	background: url(0.LightBox-icon/opacity.png) repeat left top;	/* 兼容IE8及以下版本背景色不显示 */
+}
+#LightBox-popup .LightBox-pic-caption .LightBox-caption-area{
+	height: 50px;
+	padding: 5px;
+	color: #fff;
+}
+#LightBox-popup .LightBox-pic-caption .LightBox-caption-area .LightBox-pic-desc{
+	margin: 0;
+	line-height: 25px;
+}
+#LightBox-popup .LightBox-pic-caption .LightBox-caption-area .LightBox-of-index{
+	color: #999;
+	line-height: 25px;
+}
+#LightBox-popup .LightBox-pic-caption .LightBox-close-btn{
+	position: absolute;
+	right: 10px;
+	top: 16px;
+	width: 27px;
+	height: 27px;
+	background: url(0.LightBox-icon/close.png) no-repeat center center;
+	cursor: pointer;
+}

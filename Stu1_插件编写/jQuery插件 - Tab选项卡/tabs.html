@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tabs选项卡</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		body{
+			background-color: #323232;
+			font-size: 12px;
+			font-family: "微软雅黑";
+		}
+		ul{
+			list-style: none;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="css/jquery.tabs.css">
+</head>
+<body>
+	<div class="tab" data-config='{
+			"triggerType":"mouseover11",
+			"effect":"fade",
+			"invoke":2,
+			"auto":1000
+		}'>
+		<ul class="tab-nav">
+			<li class="active"><a href="#">新闻</a></li>
+			<li><a href="#">娱乐</a></li>
+			<li><a href="#">电影</a></li>
+			<li><a href="#">科技</a></li>
+		</ul>
+		<div class="content-wrap">
+			<div class="content-item active">
+				<img src="img/1.jpg">
+			</div>
+			<div class="content-item">
+				<img src="img/2.jpg">
+			</div>
+			<div class="content-item">
+				<img src="img/3.jpg">
+			</div>
+			<div class="content-item">
+				<img src="img/4.jpg">
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.tabs.js"></script>
+	<script>
+		// Tab.init($(".tab"));
+		$(".tab").tab();
+	</script>
+</body>
+</html>
