@@ -1,0 +1,390 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?k5hyuj');
+  src:  url('fonts/icomoon.eot?k5hyuj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?k5hyuj') format('truetype'),
+    url('fonts/icomoon.woff?k5hyuj') format('woff'),
+    url('fonts/icomoon.svg?k5hyuj#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-uni21:before {
+  content: "\21";
+}
+.icon-uni22:before {
+  content: "\22";
+}
+.icon-uni23:before {
+  content: "\23";
+}
+.icon-uni24:before {
+  content: "\24";
+}
+.icon-uni25:before {
+  content: "\25";
+}
+.icon-uni26:before {
+  content: "\26";
+}
+.icon-uni27:before {
+  content: "\27";
+}
+.icon-uni28:before {
+  content: "\28";
+}
+.icon-uni29:before {
+  content: "\29";
+}
+.icon-uni2A:before {
+  content: "\2a";
+}
+.icon-uni2B:before {
+  content: "\2b";
+}
+.icon-uni2C:before {
+  content: "\2c";
+}
+.icon-uni2D:before {
+  content: "\2d";
+}
+.icon-uni2E:before {
+  content: "\2e";
+}
+.icon-uni2F:before {
+  content: "\2f";
+}
+.icon-uni30:before {
+  content: "\30";
+}
+.icon-uni31:before {
+  content: "\31";
+}
+.icon-uni32:before {
+  content: "\32";
+}
+.icon-uni33:before {
+  content: "\33";
+}
+.icon-uni34:before {
+  content: "\34";
+}
+.icon-uni35:before {
+  content: "\35";
+}
+.icon-uni36:before {
+  content: "\36";
+}
+.icon-uni37:before {
+  content: "\37";
+}
+.icon-uni38:before {
+  content: "\38";
+}
+.icon-uni39:before {
+  content: "\39";
+}
+.icon-uni3A:before {
+  content: "\3a";
+}
+.icon-uni3B:before {
+  content: "\3b";
+}
+.icon-uni3C:before {
+  content: "\3c";
+}
+.icon-uni3D:before {
+  content: "\3d";
+}
+.icon-uni3E:before {
+  content: "\3e";
+}
+.icon-uni3F:before {
+  content: "\3f";
+}
+.icon-uni40:before {
+  content: "\40";
+}
+.icon-uni41:before {
+  content: "\41";
+}
+.icon-uni42:before {
+  content: "\42";
+}
+.icon-uni43:before {
+  content: "\43";
+}
+.icon-uni44:before {
+  content: "\44";
+}
+.icon-uni45:before {
+  content: "\45";
+}
+.icon-uni46:before {
+  content: "\46";
+}
+.icon-uni47:before {
+  content: "\47";
+}
+.icon-uni48:before {
+  content: "\48";
+}
+.icon-uni49:before {
+  content: "\49";
+}
+.icon-uni4A:before {
+  content: "\4a";
+}
+.icon-uni4B:before {
+  content: "\4b";
+}
+.icon-uni4C:before {
+  content: "\4c";
+}
+.icon-uni4D:before {
+  content: "\4d";
+}
+.icon-uni4E:before {
+  content: "\4e";
+}
+.icon-uni4F:before {
+  content: "\4f";
+}
+.icon-uni50:before {
+  content: "\50";
+}
+.icon-uni51:before {
+  content: "\51";
+}
+.icon-uni52:before {
+  content: "\52";
+}
+.icon-uni53:before {
+  content: "\53";
+}
+.icon-uni54:before {
+  content: "\54";
+}
+.icon-uni55:before {
+  content: "\55";
+}
+.icon-uni56:before {
+  content: "\56";
+}
+.icon-uni57:before {
+  content: "\57";
+}
+.icon-uni5B:before {
+  content: "\5b";
+}
+.icon-uni5C:before {
+  content: "\5c";
+}
+.icon-uni5D:before {
+  content: "\5d";
+}
+.icon-uni5E:before {
+  content: "\5e";
+}
+.icon-uni5F:before {
+  content: "\5f";
+}
+.icon-uni60:before {
+  content: "\60";
+}
+.icon-uni61:before {
+  content: "\61";
+}
+.icon-uni62:before {
+  content: "\62";
+}
+.icon-uni63:before {
+  content: "\63";
+}
+.icon-uni64:before {
+  content: "\64";
+}
+.icon-uni65:before {
+  content: "\65";
+}
+.icon-uni66:before {
+  content: "\66";
+}
+.icon-uni67:before {
+  content: "\67";
+}
+.icon-uni68:before {
+  content: "\68";
+}
+.icon-uni69:before {
+  content: "\69";
+}
+.icon-uni6A:before {
+  content: "\6a";
+}
+.icon-uni6B:before {
+  content: "\6b";
+}
+.icon-uni6C:before {
+  content: "\6c";
+}
+.icon-uni6D:before {
+  content: "\6d";
+}
+.icon-uni6E:before {
+  content: "\6e";
+}
+.icon-uni6F:before {
+  content: "\6f";
+}
+.icon-uni70:before {
+  content: "\70";
+}
+.icon-uni71:before {
+  content: "\71";
+}
+.icon-uni72:before {
+  content: "\72";
+}
+.icon-uni73:before {
+  content: "\73";
+}
+.icon-uni74:before {
+  content: "\74";
+}
+.icon-uni75:before {
+  content: "\75";
+}
+.icon-uni76:before {
+  content: "\76";
+}
+.icon-uni77:before {
+  content: "\77";
+}
+.icon-uni78:before {
+  content: "\78";
+}
+.icon-uni79:before {
+  content: "\79";
+}
+.icon-uni7A:before {
+  content: "\7a";
+}
+.icon-uniA9:before {
+  content: "\a9";
+}
+.icon-uniAD:before {
+  content: "\ad";
+}
+.icon-uniAE:before {
+  content: "\ae";
+}
+.icon-uniC0:before {
+  content: "\c0";
+}
+.icon-uniC1:before {
+  content: "\c1";
+}
+.icon-uniC2:before {
+  content: "\c2";
+}
+.icon-uniC3:before {
+  content: "\c3";
+}
+.icon-uniC4:before {
+  content: "\c4";
+}
+.icon-uniC5:before {
+  content: "\c5";
+}
+.icon-uniC6:before {
+  content: "\c6";
+}
+.icon-uniC7:before {
+  content: "\c7";
+}
+.icon-uniC8:before {
+  content: "\c8";
+}
+.icon-uniC9:before {
+  content: "\c9";
+}
+.icon-uniCA:before {
+  content: "\ca";
+}
+.icon-uniCB:before {
+  content: "\cb";
+}
+.icon-uniCC:before {
+  content: "\cc";
+}
+.icon-uniCD:before {
+  content: "\cd";
+}
+.icon-uniCE:before {
+  content: "\ce";
+}
+.icon-uniCF:before {
+  content: "\cf";
+}
+.icon-uniD0:before {
+  content: "\d0";
+}
+.icon-uniD1:before {
+  content: "\d1";
+}
+.icon-uniD2:before {
+  content: "\d2";
+}
+.icon-uniD3:before {
+  content: "\d3";
+}
+.icon-uniD4:before {
+  content: "\d4";
+}
+.icon-uniD5:before {
+  content: "\d5";
+}
+.icon-uniD6:before {
+  content: "\d6";
+}
+.icon-uniD7:before {
+  content: "\d7";
+}
+.icon-uniD8:before {
+  content: "\d8";
+}
+.icon-uniD9:before {
+  content: "\d9";
+}
+.icon-uniDA:before {
+  content: "\da";
+}
+.icon-uniDB:before {
+  content: "\db";
+}
+.icon-uniDC:before {
+  content: "\dc";
+}
+.icon-uni2010:before {
+  content: "\2010";
+}
+.icon-uni2011:before {
+  content: "\2011";
+}
+
