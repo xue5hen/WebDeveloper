@@ -1,0 +1,56 @@
+/* bootstrap-table-tree样式 */
+.tree-field{position: relative;}
+.tree-indent{position: absolute;left: 0;top: 0;bottom: 0;}
+.tree-indent>div{display: inline-block;width: 32px;height: 100%;position: relative;}
+.tree-collapse,
+.tree-expand{position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);cursor: pointer;}
+.tree-branch-101:before{
+	position: absolute;
+	left: 50%;
+	content: '';
+	width: 0;
+	height: 100%;
+	border-left: 1px dashed #333;
+}
+.tree-branch-010:after{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	content: '';
+	width: 50%;
+	height: 0;
+	border-top: 1px dashed #333;
+}
+.tree-icon-branch-100:before,
+.tree-icon-branch-001:after{
+	position: absolute;
+	left: 50%;
+	content: '';
+	width: 0;
+	height: calc(50% - 8px);
+	border-left: 1px dashed #333;
+}
+.tree-icon-branch-100:before{
+	top: 0;
+}
+.tree-icon-branch-001:after{
+	bottom: 0;
+}
+.tree-icon-branch-010:after{
+	position: absolute;
+	left: 100%;
+	top: 50%;
+	content: '';
+	width: calc(100% - 8px);
+	height: 0;
+	border-top: 1px dashed #333;
+}
+.tree-branch-last.tree-branch-101:before{
+	height: 50%;
+}
+.tree-branch-last.tree-icon-branch-001:after{
+	height: 0;
+}
+.tree-branch-last-child.tree-branch-101:before{
+	height: 0;
+}

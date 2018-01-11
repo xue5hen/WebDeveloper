@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+	<title>Bootstrap风格表格树</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-table.min.css">
+	<link rel="stylesheet" href="css/bootstrap-table-tree.css">
+	<link rel="stylesheet" href="fonts/iconfont.css">
+	<style>
+		html,body,.bootstrap-table-box{height: 100%;}
+	</style>
+</head>
+<body>
+	<div class="bootstrap-table-box">
+		<table id="user_table"></table>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-table-tree.js"></script>
+	<script src="js/bootstrap-table-zh-CN.min.js"></script>
+	<script>
+		// 预置变量
+		var pageIndex=1,
+			pageSize=20,
+			RoleNameArr=["超级管理员","管理员","超级用户","普通用户"],
+			// 伪造的初始表格数据
+			tableData={
+				RetValue:[{
+	        		InstitutionName:"测试",
+					RoleName:RoleNameArr[1],
+					State:0,
+					StateName:"正常",
+					UserDescription:"",
+					UserId:"31e58734-0fca-4dcb-900b-0012f01563ac",
+					UserName:RoleNameArr[1],
+					UserPhone:"18866666666",
+					UserRole:1,
+					pId:'',
+					ParentUserRole:0
+	        	}],
+				Tag:1
+			};
+			
+		/* 数据表格 start */
+		var options={
+			sidePagination:"server",
+			pagination:true,
+			pageSize:pageSize,
+			pageList:[20, 30, 50, 100],
+			height:$(".bootstrap-table-box").height(),
+			totalField:'Tag',
+			dataField:"RetValue",
+			undefinedText: '',
+			clickToSelect:true,
+			singleSelect:true,
+			checkboxHeader:false,
+			columns:[
+				{checkbox:true,align:"center"},
+				{title:'用户名', field:'UserName',align:"center",width:'24%'},
+       			{title:'级别', field:'RoleName',align:"center",width:'10%'},
+        		{title:'电话', field:'UserPhone',align:"center",width:'12%'},
+                {title:'状态', field:'StateName',align:"center",width:'8%'},
+				{title:'机构名称', field:'InstitutionName',align:"center",width:'24%'},
+				{title:'详细信息', field:'UserDescription',align:"center"}
+            ],
+            treeView: true,		// 开启表格树功能
+            treeId: "UserId",	// 每个节点的独立编号
+            parentId: "pId",	// 父节点的treeId
+            treeField: "UserName",	// icon显示在哪一列
+            treeLevelField: "UserRole",	// 设置级别对应的字段
+            treeParentLevelField: "ParentUserRole",	// 父节点的级别对应的字段
+            treeMaxLevel: 3,	// 最深级别设定，不设定则视为无穷
+            getChild:function(index, treeId){
+            	var pId=tableData.RetValue[index][treeId];
+            	var ParentUserRole=tableData.RetValue[index]['UserRole'];
+            	var children=[{
+            		InstitutionName:"测试",
+					RoleName:RoleNameArr[ParentUserRole+1],
+					State:0,
+					StateName:"正常",
+					UserDescription:"",
+					UserId:Math.random().toString(),
+					UserName:RoleNameArr[ParentUserRole+1],
+					UserPhone:"000000",
+					UserRole:ParentUserRole+1,
+            	},{
+            		InstitutionName:"测试",
+					RoleName:RoleNameArr[ParentUserRole+1],
+					State:0,
+					StateName:"正常",
+					UserDescription:"",
+					UserId:Math.random().toString(),
+					UserName:RoleNameArr[ParentUserRole+1],
+					UserPhone:"000000",
+					UserRole:ParentUserRole+1,
+            	},{
+            		InstitutionName:"测试",
+					RoleName:RoleNameArr[ParentUserRole+1],
+					State:0,
+					StateName:"正常",
+					UserDescription:"",
+					UserId:Math.random().toString(),
+					UserName:RoleNameArr[ParentUserRole+1],
+					UserPhone:"000000",
+					UserRole:ParentUserRole+1,
+            	}];
+            	$.each(children,function(i,v){
+                	v.pId=pId;	// 实际生产中后端数据应该包含该字段，此处为伪造数据
+                	v.ParentUserRole=ParentUserRole;	// 实际生产中后端数据应该包含该字段
+                });
+                return children;
+            },
+            onPageChange:function(number, size){
+            	pageIndex=number;
+            	pageSize=size;
+            	GetUserList(pageIndex,pageSize);
+            }
+		};
+		/* 数据表格 end */
+		$(window).on("resize",function(){
+			$("#user_table").bootstrapTable("resetView",{height:$(".bootstrap-table-box").height()});
+		}).on("load",function(){
+			$("#user_table").bootstrapTable(options);
+			$("#user_table").bootstrapTable('load',tableData);
+		});
+		function GetUserList(pageIndex,pageSize){
+			// 获取表格数据，balabalabalabala~~
+		}
+	</script>
+</body>
+</html>
