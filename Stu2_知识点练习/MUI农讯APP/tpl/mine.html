@@ -1,0 +1,154 @@
+<!doctype html>
+<html class="mine">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/index.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<div id="app">
+			<div class="mui-content" v-show="account">
+			    <div class="user-panel mui-bg-success mui-text-center">
+			    	<div class="user-photo">
+			    		<span class="mui-icon mui-icon-contact" v-show="!photo" @tap="GoToWordpad"></span>
+			    		<img :src="photo" v-show="photo" @tap="GoToWordpad" />
+			    	</div>
+			    	<div class="user-info">{{account}}</div>
+			    </div>
+			    <ul class="mui-table-view">
+		            <li class="mui-table-view-cell">
+		            	账户余额<span class="mui-pull-right">{{fund}}元</span>
+		            </li>
+		            <!--<li class="mui-table-view-cell" @tap='Developing'>
+		                <a class="mui-navigate-right">
+							订单管理
+		                </a>
+		            </li>
+		            <li class="mui-table-view-cell" @tap='Developing'>
+		                <a class="mui-navigate-right">
+							购物车
+		                </a>
+		            </li>-->
+		            <li class="mui-table-view-cell">
+		                <span>消息提醒</span>
+		                <div class="mui-switch mui-switch-mini" :class="isWarning?'mui-active':''" @toggle="TabWarning($event)">
+		                	<div class="mui-switch-handle"></div>
+		                </div>
+		            </li>
+		            <li class="mui-table-view-cell" @tap='GoToChangePwd'>
+		                <a class="mui-navigate-right">
+							修改密码
+		                </a>
+		            </li>
+		            <li class="mui-table-view-cell" @tap='Logout'>
+		                <a class="mui-navigate-right">
+							退出登录
+		                </a>
+		            </li>
+		        </ul>
+			</div>
+		    <div v-show="!account" class="user-nologin-panel mui-text-center">
+		    	<div class="user-nologin-photo">
+		    		<span class="mui-icon mui-icon-contact"></span>
+		    	</div>
+		    	<p>登录后才能使用该功能</p>
+		    	<div class="user-nologin-info">
+		    		<button class="mui-btn mui-btn-green" @tap="GoToLogin">立即登录</button>
+		    		<button class="mui-btn mui-btn-warning" @tap="GoToReg">前往注册</button>
+		    	</div>
+		    </div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					account:'',
+					photo:'',
+					fund:0,
+					isWarning:false,
+					newsList:[]
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						this.Init();
+						window.addEventListener('mine',function(e){
+							vm.Init();
+						});
+					});
+				},
+				methods:{
+					Init:function(){
+						this.account=localStorage.getItem('account')||'';
+						this.photo=localStorage.getItem('userPhoto')||'';
+						this.isWarning=localStorage.getItem('isWarning')||false;
+						this.account?this.GetFund():'';
+					},
+					GoToReg:function(){
+						mui.openWindow({
+							url:'../login/reg.html',
+							id:'reg'
+						});
+					},
+					GoToLogin:function(){
+						mui.openWindow({
+							url:'../login/login.html',
+							id:'login'
+						});
+					},
+					GoToWordpad:function(){
+						mui.openWindow({
+							url:'../game/g_wordpad.html',
+							id:'g_wordpad'
+						});
+					},
+					TabWarning:function(e){
+						setTimeout(function() {
+							vm.isWarning = e.detail.isActive||false;
+							localStorage.setItem('isWarning',vm.isWarning);
+						}, 50);
+					},
+					GoToChangePwd:function(){
+						mui.openWindow({
+							url:'../login/change_password.html',
+							id:'change_password'
+						});
+					},
+					Logout:function(){
+						localStorage.removeItem('account');
+						localStorage.removeItem('isAutoLogin');
+						mui.plusReady(function(){
+							['publish','mine'].forEach(function(v,i){
+								var webviewObj=plus.webview.getWebviewById(v);
+								mui.fire(webviewObj,v,{});
+							});
+						});
+					},
+					GetFund:function(){
+						Server.GetFund({
+							data:{
+								account:this.account
+							},
+							success:function(res){
+								vm.fund=res.data||0;
+							},
+							fail:function(res){
+								mui.toast(res.msg);
+							}
+						});
+					},
+					Developing:function(){
+						mui.toast('该功能正在研发中...');
+					}
+				}
+			});
+			mui.init({
+	      		keyEventBind:{backbutton:false}
+	      	});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html class="publish">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/fonts.css" rel="stylesheet"/>
+		<link href="../css/index.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<div id="app">
+		    <ul class="mui-table-view" v-show="account">
+		        <li class="mui-table-view-cell mui-media" @tap='GoToAddInfo("0")'>
+		            <a href="javascript:;">
+		                <div class="mui-media-object mui-pull-left mui-bg-danger icon-box mui-text-center"></div>
+		                <div class="mui-media-body">
+							发布商品
+		                    <p class="mui-ellipsis">有什么想卖的就请点击这里吧</p>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media" @tap='GoToAddInfo("1")'>
+		            <a href="javascript:;">
+		                <div class="mui-media-object mui-pull-left mui-bg-info icon-chatbox mui-text-center"></div>
+		                <div class="mui-media-body">
+							发布需求
+		                    <p class="mui-ellipsis">有什么需要可以在这里广播哟</p>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media" v-show="account=='admin'" @tap='GoToAddNews()'>
+		            <a href="javascript:;">
+		                <div class="mui-media-object mui-pull-left mui-bg-info mui-icon mui-icon-pengyouquan mui-text-center"></div>
+		                <div class="mui-media-body">
+							发布资讯
+		                    <p class="mui-ellipsis">只有管理员才有此功能哦</p>
+		                </div>
+		            </a>
+		        </li>
+		    </ul>
+		    <div v-show="!account" class="user-nologin-panel mui-text-center">
+		    	<div class="user-nologin-photo">
+		    		<span class="mui-icon mui-icon-contact"></span>
+		    	</div>
+		    	<p>登录后才能使用该功能</p>
+		    	<div class="user-nologin-info">
+		    		<button class="mui-btn mui-btn-green" @click="GoToLogin">立即登录</button>
+		    		<button class="mui-btn mui-btn-warning" @click="GoToReg">前往注册</button>
+		    	</div>
+		    </div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					account:'',
+					newsList:[]
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						this.Init();
+						window.addEventListener('publish',function(e){
+							vm.Init();
+						});
+						mui.init({
+				      		keyEventBind:{backbutton:false}
+				    	});
+					});
+				},
+				methods:{
+					Init:function(){
+						this.account=localStorage.getItem('account')||'';
+					},
+					GoToAddInfo:function(type){
+						mui.openWindow({
+							url:'../tpl/m_info_add.html',
+							id:'m_info_add',
+							extras:{
+								type:type
+							}
+						});
+					},
+					GoToAddNews:function(){
+						mui.openWindow({
+							url:'../tpl/m_news_add.html',
+							id:'m_news_add'
+						});
+					},
+					GoToReg:function(){
+						mui.openWindow({
+							url:'../login/reg.html',
+							id:'reg'
+						});
+					},
+					GoToLogin:function(){
+						mui.openWindow({
+							url:'../login/login.html',
+							id:'login'
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

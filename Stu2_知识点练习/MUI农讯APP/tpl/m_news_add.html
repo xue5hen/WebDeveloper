@@ -1,0 +1,201 @@
+<!doctype html>
+<html class="ui-page-login">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.min.css" rel="stylesheet" />
+		<link href="../css/index.css" rel="stylesheet" />
+	</head>
+	<body>
+	    <header class="mui-bar mui-bar-nav">
+	        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	        <h1 class="mui-title">发布资讯</h1>
+	    </header>
+	    <div class="mui-content" id="app">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>标题</label>
+					<input v-model.trim='title' type="text" class="mui-input-clear mui-input" placeholder="请输入标题">
+				</div>
+				<div class="mui-input-row" @tap="ShowDtPicker">
+					<label>时间</label>
+					<input v-model.trim='time' type="text" class="mui-input" placeholder="请填写日期" readonly="readonly"/>
+				</div>
+				<div class="mui-input-row img-box">
+					<label>图片</label>
+					<label class="img-selector" :class="{'img-noexist':!imgSrc}" @tap='OpenImagesList'>
+						<!--Web下的用法在webview中不可用-->
+						<!--<input ref='upload_img' @change="UpdateImgSrc" type="file" class="mui-input mui-hidden" accept=".png,.jpg,.jpeg,.gif,.bmp">-->
+						<img :src='imgSrc' v-show="imgSrc" />
+					</label>
+				</div>
+				<div class="mui-input-row">
+					<label>简介</label>
+					<input v-model.trim='abstract' type="text" class="mui-input-clear mui-input" placeholder="请输入简介">
+				</div>
+				<div class="mui-input-row">
+					<label>链接</label>
+					<input v-model.trim='href' type="text" class="mui-input-clear mui-input" placeholder="请输入文章链接">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button class="mui-btn mui-btn-block mui-btn-green" @tap="AddNews">提交</button>
+			</div>
+			<div class="img-dir" v-show="openImagesList">
+				<div class="mui-card">
+					<div class="mui-card-header">请选择图片</div>
+					<div class="mui-card-content">
+						<ul class="mui-table-view">
+					        <li class="mui-table-view-cell" v-for="(image,i) in imagesList" @tap='UpdateImgSrc(i)'>
+					        	<span class="mui-icon mui-icon-image"></span>{{image.name}}
+					        </li>
+					    </ul>
+						<p class="content-noexist mui-text-center" v-show="imagesList.length==0">
+							暂无可用图片
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					time:'',
+					title:'',
+					imgSrc:'',
+					abstract:'',
+					href:'',
+					dtPicker:null,
+					imagesList:[],
+					openImagesList:false,
+					mask:null
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						var now=new Date();
+						this.time=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+						mui.init();
+						this.dtPicker=new mui.DtPicker({type:'date'}); 
+						this.InitImgs();
+						this.mask = mui.createMask(function(){
+							vm.openImagesList=false;
+						});
+					});
+				},
+				methods:{
+					InitImgs:function(){
+						mui.plusReady(function(){
+							// 摄像头拍照完毕后程序会重启·bug
+							/*var cmr=plus.camera.getCamera();
+							// 摄像头支持的分辨率
+							var res = cmr.supportedImageResolutions[0];
+							// 摄像头支持拍照的图片格式
+							var fmt = cmr.supportedImageFormats[0];
+							cmr.captureImage(function(path){
+								mui.toast(path);
+							},function(err){
+								mui.toast('错误：'+err.message);
+							},{resolution:res,format:fmt});*/
+							// 测试文件访问路径只有plus.io.PRIVATE_WWW可用
+							plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
+								var directoryReader=fs.root.createReader();
+								var imgsReader;
+								directoryReader.readEntries(function( entries ){
+									for(var i=0; i < entries.length; i++ ) {
+										if(entries[i].name=='img'){
+											imgsReader=entries[i].createReader();
+											break;
+										}
+									}
+									imgsReader.readEntries(function( images ){
+										vm.imagesList=images||[];
+									}, function ( e ) {
+										mui.toast( "读取img文件夹图片错误: " + e.message );
+									});
+								}, function ( e ) {
+									mui.toast( "读取应用运行资源目录错误: " + e.message );
+								} );
+							}, function ( e ) {
+								mui.toast( "请求应用运行资源目录错误: " + e.message );
+							});
+						});
+					},
+					OpenImagesList:function(){
+						this.mask.show();
+						this.openImagesList=true;
+					},
+					CloseImagesList:function(){
+						this.mask.close();
+						this.openImagesList=false;
+					},
+					UpdateImgSrc:function(index){
+						var entry=this.imagesList[index];
+						entry.file( function(file){
+							var fileReader = new plus.io.FileReader();
+							fileReader.readAsDataURL(file, 'utf-8');
+							fileReader.onloadend = function(evt) {
+								vm.CloseImagesList();
+								vm.imgSrc=evt.target.result;
+							}
+						} );
+					},
+					// Web下的用法在webview中不可用
+					/*UpdateImgSrc:function(){
+						var files=this.$refs['upload_img'].files;
+						var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+					    if(files.length==0){
+							this.imgSrc=''
+						}else if(files&&files[0]){
+							if (!rFilter.test(files[0].type)) {
+						        mui.toast("必须选择一个图片文件！");
+						        return;
+						    }
+							var reader=new FileReader();
+							reader.onload=function(e){
+								vm.imgSrc=e.target.result;
+							};
+							reader.readAsDataURL(files[0]);
+						}
+					},*/
+					AddNews:function(){
+						if(this.title==''){
+							mui.toast('标题不能为空');
+							return;
+						}
+						Server.AddNews({
+							data:{
+								time:vm.time,
+								title:vm.title,
+								imgSrc:vm.imgSrc,
+								abstract:vm.abstract,
+								href:vm.href
+							},
+							success:function(res){
+								mui.toast(res.msg);
+								vm.title='';
+								vm.imgSrc='';
+								vm.abstract='';
+								vm.href='';
+							},
+							fail:function(res){
+								mui.toast(res.msg);
+							}
+						});
+					},
+					ShowDtPicker:function(){
+						this.dtPicker.show(function(data){
+							vm.time=data.value;
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

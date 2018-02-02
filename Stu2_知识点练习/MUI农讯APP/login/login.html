@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/index.css" rel="stylesheet" />
+		<style>
+			.spliter {color: #bbb;padding: 0px 8px;}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">登录</h1>
+		</header>
+		<div class="mui-content" id='app'>
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input v-model='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input v-model='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+			</form>
+			<form class="mui-input-group">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						自动登录
+						<div class="mui-switch" :class="isAutoLogin?'mui-active':''" @toggle="TabAutoLogin($event)">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+			</form>
+			<div class="mui-content-padded">
+				<button class="mui-btn mui-btn-block mui-btn-green" @tap="Login">登录</button>
+			</div>
+			<div class="mui-content-padded mui-text-center">
+				<a @tap='Forword("reg")'>注册账号</a> <span class="spliter">|</span> <a @tap='Forword("forget_password")'>忘记密码</a>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script>
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					account:'',
+					password:'',
+					isAutoLogin:false,
+					fromUrl:''
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						this.RetSetForm();
+						mui.init();
+						mui.plusReady(function(){
+							vm.fromUrl=plus.webview.currentWebview().fromUrl||vm.fromUrl;
+						});
+					});
+				},
+				methods:{
+					RetSetForm:function(){
+						this.account=localStorage.getItem('account')||'';
+						this.password='';
+						this.isAutoLogin=localStorage.getItem('isAutoLogin')||false;
+					},
+					Login:function(){
+						if(this.account==''){
+							mui.toast('账号不能为空');
+							return;
+						}
+						if(this.password==''){
+							mui.toast('密码不能为空');
+							return;
+						}
+						// 向服务器发送请求
+						Server.Login({
+							data:{
+								account:this.account,
+								password:this.password
+							},
+							success:function(res){
+								mui.toast(res.msg);
+								localStorage.setItem('account',vm.account);
+								mui.plusReady(function(){
+									['publish','mine'].forEach(function(v,i){
+										var webviewObj=plus.webview.getWebviewById(v);
+										mui.fire(webviewObj,v,{});
+									});
+								});
+								mui.later(function(){
+									mui.back();
+								},1000);
+							},
+							fail:function(res){
+								mui.toast(res.msg);
+							}
+						});
+					},
+					TabAutoLogin:function(e){
+						setTimeout(function() {
+							vm.isAutoLogin = e.detail.isActive||false;
+							localStorage.setItem('isAutoLogin',vm.isAutoLogin);
+						}, 50);
+					},
+					Forword:function(id){
+						mui.openWindow({
+							url:'../login/'+id+'.html',
+							id:id
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

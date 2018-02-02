@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/index.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<!--下拉刷新容器-->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper" v-cloak>
+		  <div class="mui-scroll">
+		    <!--数据列表-->
+		    <ul class="mui-table-view">
+		        <li v-for='info in InfoList' class="mui-table-view-cell mui-media">
+		            <a href="javascript:;" @tap="ViewDetail(info.id)">
+		            	<div class="mui-media-object mui-pull-left img-placehoder">
+		                	<img :src="info.imgSrc||'../img/40x40.png'">
+		            	</div>
+		                <div class="mui-media-body">
+		                	<div class="mui-media-title">
+		                		<span class="mui-pull-right">{{info.time | formatDate}}</span>
+		                		<span class="mui-ellipsis">{{info.title}}</span>
+		                	</div>
+		                    <p class="mui-ellipsis">{{info.content}}</p>
+		                </div>
+		            </a>
+		        </li>
+		    </ul>
+			<p class="content-noexist mui-text-center" v-show="InfoList.length==0">
+				暂无相关内容
+			</p>
+		  </div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script type="text/javascript">
+			Vue.filter('formatDate',function(val){
+				return val.split(' ')[0];
+			});
+			var vm=new Vue({
+				el:'#refreshContainer',
+				data:{
+					InfoList:[]
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						mui.init({
+			      			keyEventBind:{backbutton:false},
+							pullRefresh:{
+								container:'#refreshContainer',
+								down:{
+									height:50,//可选,默认50.触发下拉刷新拖动距离,
+									auto: false,//可选,默认false.首次加载自动下拉刷新一次
+									contentdown : "下拉可以刷新",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+									contentover : "释放立即刷新",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+									contentrefresh : "正在刷新...",
+									style:'circle',
+									callback:function(){
+										vm.GetInfoList(function(){
+											mui('#refreshContainer').pullRefresh().endPulldown();
+										});
+									}
+								}
+							}
+						});
+						mui('.mui-scroll-wrapper').scroll();
+						window.addEventListener('market',function(e){
+							vm.GetInfoList();
+						});
+					});
+				},
+				methods:{
+					GetInfoList:function(callback){
+						Server.GetInfo({
+							success:function(res){
+								vm.InfoList=res.data||[];
+							},
+							fail:function(res){
+								mui.toast(res.msg);
+							}
+						});
+						if(callback){callback();}
+					},
+					ViewDetail:function(infoId){
+						mui.openWindow({
+							url:'m_info_detail.html',
+							id:'m_info_detail',
+							extras:{
+								infoId:infoId
+							}
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

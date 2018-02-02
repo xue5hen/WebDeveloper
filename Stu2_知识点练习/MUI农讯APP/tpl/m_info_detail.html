@@ -1,0 +1,58 @@
+<!doctype html>
+<html class="publish">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/index.css" rel="stylesheet" />
+	</head>
+	<body>
+	    <header class="mui-bar mui-bar-nav">
+	        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	        <h1 class="mui-title">布告详情</h1>
+	    </header>
+	    <div class="mui-content mui-text-center" id="app" v-cloak>
+	        <h1>{{info.title}}</h1>
+	        <p>{{info.account+' '+info.time}}</p>
+	        <div class="mui-text-left mui-panel">{{info.content}}</div>
+	    </div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					info:{
+						account:'',
+						time:'',
+						title:'',
+						type:'',
+						imgSrc:'',
+						content:''
+					}
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						mui.plusReady(function(){
+							var infoId=plus.webview.currentWebview().infoId;
+							mui.init();
+							Server.GetInfoById({
+								data:{id:infoId},
+								success:function(res){
+									vm.info=res.data;
+								},
+								fail:function(res){
+									mui.toast(res.msg);
+								}
+							});
+						});
+					});
+				},
+				methods:{
+				}
+			});
+		</script>
+	</body>
+</html>

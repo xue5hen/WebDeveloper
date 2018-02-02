@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/index.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">注册</h1>
+		</header>
+		<div class="mui-content" id="app">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input v-model.trim='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input v-model='password' type="password" class="mui-input-password mui-input" placeholder="请输入密码">
+				</div>
+				<div class="mui-input-row">
+					<label>确认</label>
+					<input v-model='password_confirm' type="password" class="mui-input-password mui-input" placeholder="请确认密码">
+				</div>
+				<div class="mui-input-row">
+					<label>邮箱</label>
+					<input v-model.trim='email' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button class="mui-btn mui-btn-block mui-btn-green" @tap="Register">注册</button>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script>
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					account:'',
+					password:'',
+					password_confirm:'',
+					email:''
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						mui.init();
+					});
+				},
+				methods:{
+					RetSetForm:function(){
+						this.account='';
+						this.password='';
+						this.password_confirm='';
+						this.email='';
+					},
+					Register:function(){
+						if(this.account==''){
+							mui.toast('账号不能为空');
+							return;
+						}
+						if(this.password==''){
+							mui.toast('密码不能为空');
+							return;
+						}
+						if(this.password!==this.password_confirm){
+							mui.toast('两次输入密码不一致');
+							return;
+						}
+						if(this.email && !/^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/.test(this.email)){
+							mui.toast('邮箱格式不正确');
+							return;
+						}
+						// 向服务器发送请求
+						Server.Register({
+							data:{
+								account:this.account,
+								password:this.password,
+								email:this.email
+							},
+							success:function(res){
+								vm.RetSetForm();
+								mui.toast(res.msg);
+								mui.later(function(){
+									// 原本希望将当前页面关掉，但使用mui.back后登录页会打不开
+//									mui.back();
+									mui.plusReady(function(){
+										plus.webview.currentWebview().hide('slide-out-left');
+										mui.openWindow({
+											url:'../login/login.html',
+											id:'login'
+										});
+									});
+								},1000);
+							},
+							fail:function(res){
+								mui.toast(res.msg);
+							}
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

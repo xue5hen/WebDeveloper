@@ -1,0 +1,172 @@
+<!doctype html>
+<html class="ui-page-login">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/index.css" rel="stylesheet" />
+	</head>
+	<body>
+	    <header class="mui-bar mui-bar-nav">
+	        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	        <h1 class="mui-title">发布信息</h1>
+	    </header>
+	    <div class="mui-content" id="app">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>标题</label>
+					<input v-model.trim='title' type="text" class="mui-input-clear mui-input" placeholder="请输入标题">
+				</div>
+				<div class="mui-input-row">
+					<label>类型</label>
+					<select class="mui-input" v-model="type">
+						<option value="0">发布商品</option>
+						<option value="1">发布需求</option>
+					</select>
+				</div>
+				<div class="mui-input-row img-box" v-show="type=='0'">
+					<label>图片</label>
+					<label class="img-selector" :class="{'img-noexist':!imgSrc}" @tap='OpenImagesList'>
+						<img :src='imgSrc' v-show="imgSrc" />
+					</label>
+				</div>
+				<div class="mui-input-row textarea-box">
+					<label>描述</label>
+					<textarea v-model.trim='content' class="mui-input" placeholder="请输入正文"></textarea>
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button class="mui-btn mui-btn-block mui-btn-green" @tap="AddInfo">提交</button>
+			</div>
+			<div class="img-dir" v-show="openImagesList">
+				<div class="mui-card">
+					<div class="mui-card-header">请选择图片</div>
+					<div class="mui-card-content">
+						<ul class="mui-table-view">
+					        <li class="mui-table-view-cell" v-for="(image,i) in imagesList" @tap='UpdateImgSrc(i)'>
+					        	<span class="mui-icon mui-icon-image"></span>{{image.name}}
+					        </li>
+					    </ul>
+						<p class="content-noexist mui-text-center" v-show="imagesList.length==0">
+							暂无可用图片
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					account:'',
+					time:'',
+					title:'',
+					type:'',
+					imgSrc:'',
+					content:'',
+					imagesList:[],
+					openImagesList:false,
+					mask:null
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						this.account=localStorage.getItem('account')||'';
+						mui.init();
+						mui.plusReady(function(){
+							vm.type=plus.webview.currentWebview().type;
+						}); 
+						this.InitImgs();
+						this.mask = mui.createMask(function(){
+							vm.openImagesList=false;
+						});
+					});
+				},
+				methods:{
+					InitImgs:function(){
+						mui.plusReady(function(){
+							plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
+								var directoryReader=fs.root.createReader();
+								var imgsReader;
+								directoryReader.readEntries(function( entries ){
+									for(var i=0; i < entries.length; i++ ) {
+										if(entries[i].name=='img'){
+											imgsReader=entries[i].createReader();
+											break;
+										}
+									}
+									imgsReader.readEntries(function( images ){
+										vm.imagesList=images||[];
+									}, function ( e ) {
+										mui.toast( "读取img文件夹图片错误: " + e.message );
+									});
+								}, function ( e ) {
+									mui.toast( "读取应用运行资源目录错误: " + e.message );
+								} );
+							}, function ( e ) {
+								mui.toast( "请求应用运行资源目录错误: " + e.message );
+							});
+						});
+					},
+					OpenImagesList:function(){
+						this.mask.show();
+						this.openImagesList=true;
+					},
+					CloseImagesList:function(){
+						this.mask.close();
+						this.openImagesList=false;
+					},
+					UpdateImgSrc:function(index){
+						var entry=this.imagesList[index];
+						entry.file( function(file){
+							var fileReader = new plus.io.FileReader();
+							fileReader.readAsDataURL(file, 'utf-8');
+							fileReader.onloadend = function(evt) {
+								vm.CloseImagesList();
+								vm.imgSrc=evt.target.result;
+							}
+						} );
+					},
+					AddInfo:function(){
+						if(this.title==''){
+							mui.toast('标题不能为空');
+							return;
+						}
+						if(this.type==''){
+							mui.toast('类型不能为空');
+							return;
+						}
+						if(this.content==''){
+							mui.toast('正文内容不能为空');
+							return;
+						}
+						var now=new Date();
+						this.time=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds();
+						Server.AddInfo({
+							data:{
+								account:vm.account,
+								time:vm.time,
+								title:vm.title,
+								type:vm.type,
+								imgSrc:vm.imgSrc,
+								content:vm.content
+							},
+							success:function(res){
+								mui.toast(res.msg);
+								vm.title='';
+								vm.imgSrc='';
+								vm.content='';
+							},
+							fail:function(res){
+								mui.toast(res.msg);
+							}
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

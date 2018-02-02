@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/fonts.css" rel="stylesheet"/>
+		<link href="../css/index.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<div id="app" class="mui-scroll-wrapper" v-cloak>
+			<div class="mui-scroll">
+				<div class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#" @tap="ViewSlide(3)"><img src="../img/slider_3.jpg"></a>
+						</div>
+						<!--第一个内容区容器-->
+						<div class="mui-slider-item">
+						  <!-- 具体内容 -->
+						  <a href="#" @tap="ViewSlide(1)"><img src="../img/slider_1.jpg"></a>
+						</div>
+						<!--第二个内容区-->
+						<div class="mui-slider-item">
+						  <!-- 具体内容 -->
+						  <a href="#" @tap="ViewSlide(2)"><img src="../img/slider_2.jpg"></a>
+						</div>
+						<!--第三个内容区-->
+						<div class="mui-slider-item">
+						  <!-- 具体内容 -->
+						  <a href="#" @tap="ViewSlide(3)"><img src="../img/slider_3.jpg"></a>
+						</div>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#" @tap="ViewSlide(1)"><img src="../img/slider_1.jpg"></a>
+						</div>
+					</div>
+					<div class="mui-slider-indicator">
+					    <div class="mui-indicator mui-active"></div>
+					    <div class="mui-indicator"></div>
+					    <div class="mui-indicator"></div>
+					</div>
+				</div>
+				<ul class="mui-row mui-grid-4">
+					<li class="mui-col-xs-6">
+						<div class="mui-grid-item mui-row mui-bg-success">
+							<div class='mui-col-xs-4 mui-icon icon-greens'></div>
+							<div class='mui-col-xs-8'>
+								<h4>蔬菜</h4>
+								<p>绿油油青翠欲滴</p>
+							</div>
+						</div>
+					</li>
+					<li class="mui-col-xs-6">
+						<div class="mui-grid-item mui-row mui-bg-danger">
+							<div class='mui-col-xs-4 mui-icon icon-fruit'></div>
+							<div class='mui-col-xs-8'>
+								<h4>水果</h4>
+								<p>红彤彤酸甜爽口</p>
+							</div>
+						</div>
+					</li>
+					<li class="mui-col-xs-6">
+						<div class="mui-grid-item mui-row mui-bg-warning">
+							<div class='mui-col-xs-4 mui-icon icon-wheat'></div>
+							<div class='mui-col-xs-8'>
+								<h4>粮食</h4>
+								<p>金灿灿稻谷飘香</p>
+							</div>
+						</div>
+					</li>
+					<li class="mui-col-xs-6">
+						<div class="mui-grid-item mui-row mui-bg-info">
+							<div class='mui-col-xs-4 mui-icon icon-pig'></div>
+							<div class='mui-col-xs-8'>
+								<h4>禽畜</h4>
+								<p>圆嘟嘟膘肥体壮</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="mui-table-caption mui-text-success">最新资讯</div>
+				<ul class="mui-table-view">
+		            <li v-for='news in newsList' class="mui-table-view-cell mui-media" @tap=ViewDetail(news.href)>
+			            <a href="javascript:;">
+			            	<div class="mui-media-object mui-pull-left img-placehoder">
+			                	<img :src="news.imgSrc||'../img/40x40.png'">
+			            	</div>
+			                <div class="mui-media-body">
+			                	<div class="mui-media-title">
+			                		<span class="mui-pull-right">{{news.time}}</span>
+			                		<span class="mui-ellipsis">{{news.title}}</span>
+			                	</div>
+			                    <p class="mui-ellipsis">{{news.abstract}}</p>
+			                </div>
+			            </a>
+			        </li>
+		        </ul>
+				<p class="content-noexist mui-text-center" v-show="newsList.length==0">
+					暂无相关内容
+				</p>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					newsList:[/*{
+						id:1,
+						imgSrc:"http://placehold.it/40x30",
+						title:'演示数据',
+						time:'2018-02-02',
+						abstract:'演我所演，暗黑系演示数据，码农的贴心伙伴',
+						content:'好黑暗~好黑暗~~好黑暗~，好黑暗~好黑暗~~好黑暗~'
+					}*/]
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						vm.GetNewsList();
+						mui.init({
+				      		keyEventBind:{backbutton:false}
+				      	});
+						mui('.mui-scroll-wrapper').scroll();
+						mui.ready(function(){
+							mui('.mui-slider').slider({interval:3000});
+						});
+						window.addEventListener('home',function(e){
+							vm.GetNewsList();
+						});
+					});
+				},
+				methods:{
+					GetNewsList:function(callback){
+						Server.GetNews({
+							success:function(res){
+								vm.newsList=res.data||[];
+							},
+							fail:function(res){
+								mui.toast(res.msg);
+							}
+						});
+						if(callback){callback();}
+					},
+					ViewDetail:function(href){
+						mui.openWindow({
+							url:'m_news_detail.html',
+							id:'m_news_detail',
+							extras:{
+								href:href
+							}
+						});
+					},
+					ViewSlide:function(index){
+						var targetUrl='',targetId='';
+						if(index==1){
+							targetUrl='../game/g_lottery_wheel.html';
+							targetId='g_lottery_wheel';
+						}else if(index==2){
+							targetUrl='../game/g_wordpad.html';
+							targetId='g_wordpad';
+						}else if(index==3){
+							targetUrl='../game/g_scratch.html';
+							targetId='g_scratch';
+						}
+						mui.openWindow({
+							url:targetUrl,
+							id:targetId
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

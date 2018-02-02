@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			html,body{height: 100%;}
+			.mui-content{width: 100%;height: 100%;position: relative;}
+			.blur-image{width: 100%;filter: blur(10px);-webkit-filter: blur(10px);
+				background:url('../img/scratch.jpg') no-repeat center center;}
+			.blur-image,canvas{position: absolute;left: 0;top:44px;right: 0;bottom: 0;}
+			.control-btn-group{position: absolute;bottom:50px;left: 0;right: 0;}
+			.control-btn-group .mui-btn{margin: 0 50px;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">图片刮刮</h1>
+		</header>
+		<div class="mui-content mui-text-center">
+			<div class="blur-image"></div>
+		    <canvas id="canvas"></canvas>
+		    <div class="control-btn-group mui-text-center">
+		    	<button class="mui-btn mui-btn-blue" id="resetBtn">RESET</button>
+		    	<button class="mui-btn mui-btn-royal" id="showBtn">SHOW</button>
+		    </div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var cvs=document.getElementById('canvas'),
+				resetBtn=document.getElementById('resetBtn'),
+				showBtn=document.getElementById('showBtn');
+			var ctx=cvs.getContext('2d');
+			cvs.width=mui('.blur-image')[0].clientWidth;
+			cvs.height=mui('.blur-image')[0].clientHeight;
+			ctx.width=cvs.width;
+			ctx.height=cvs.height;
+			var clipBrush={x:0,y:0,r:0};
+			var imgObj=new Image();
+			var sx,sy,dx,dy,sw,sh,dw,dh;
+			imgObj.src='../img/scratch.jpg';
+			imgObj.onload=function(){
+				if(this.width>ctx.width){
+					sx=(this.width-ctx.width)/2;
+					sw=ctx.width;
+					dx=0;
+					dw=ctx.width;
+				}else{
+					sx=0;
+					sw=this.width;
+					dx=(ctx.width-this.width)/2;
+					dw=this.width;
+				}
+				if(this.height>ctx.height){
+					sy=(this.height-ctx.height)/2;
+					sh=ctx.height;
+					dy=0;
+					dh=ctx.height;
+				}else{
+					sy=0;
+					sh=this.height;
+					dy=(ctx.height-this.height)/2;
+					dh=this.height;
+				}
+				resetBtn.addEventListener('tap',Start,false);
+				showBtn.addEventListener('tap',Show,false);
+				if(IsPC()){
+					cvs.addEventListener('mousedown',function(){
+						cvs.addEventListener('mousemove',MouseMove,false);
+					},false);
+					cvs.addEventListener('mouseup',function(){
+						cvs.removeEventListener('mousemove',MouseMove,false);
+					},false);
+				}else{
+					cvs.addEventListener('touchmove',function(e){
+						e=e||window.event;
+						e.preventDefault();
+						clipBrush.x=e.touches[0].clientX-cvs.offsetLeft;
+						clipBrush.y=e.touches[0].clientY-cvs.offsetTop;
+						clipBrush.r=30;
+						DrawCircle();
+					},false);
+				}
+			};
+			function Start(){
+				ctx.clearRect(0,0,ctx.width,ctx.height);
+				clipBrush.r=30;
+				clipBrush.x=Math.floor(Math.random()*(dw-2*clipBrush.r)+clipBrush.r+dx);
+				clipBrush.y=Math.floor(Math.random()*(dh-2*clipBrush.r)+clipBrush.r+dy);
+				DrawCircle();
+			}
+			function Show(){
+				var Rmax=Math.ceil(Math.sqrt(ctx.width*ctx.width+ctx.height*ctx.height));
+				var showTimer=setInterval(function(){
+					if(clipBrush.r<Rmax){
+						clipBrush.r+=15;
+						DrawCircle(clipBrush.r);
+					}else{
+						clearInterval(showTimer);
+					}
+				},30);
+			}
+			function DrawCircle(){
+				ctx.save();
+				ctx.beginPath();
+				ctx.arc(clipBrush.x,clipBrush.y,clipBrush.r,0,2*Math.PI);
+				ctx.closePath();
+				ctx.clip();
+				ctx.drawImage(imgObj,sx,sy,sw,sh,dx,dy,dw,dh);
+				ctx.restore();
+			}
+			function IsPC()  {  
+				var userAgentInfo = navigator.userAgent;  
+				var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
+				var flag = true;  
+				for (var v = 0; v < Agents.length; v++) {  
+					if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }  
+				}  
+				return flag;  
+			}
+			function MouseMove(e){
+				e=e||window.event;
+				e.preventDefault();
+				clipBrush.x=e.clientX-cvs.offsetLeft;
+				clipBrush.y=e.clientY-cvs.offsetTop;
+				clipBrush.r=30;
+				DrawCircle();
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			html,body{height: 100%;}
+			.mui-content{width: 100%;height: 100%;position: relative;background-color: red;overflow: hidden;}
+			.lottery-wheel,.lottery-pointer{position: absolute;left: 0;top: 0;right: 0;bottom: 0;margin: auto;}
+			.lottery-wheel{width: 0;height:0;padding: 40%;background:url('../img/wheel.png') no-repeat center center;background-size: 100% 100%;}
+			.lottery-pointer{width: 2.4rem;padding: 0 0.45rem 0.45rem;
+				-webkit-transition: all 2s ease-in-out;transition: all 2s ease-in-out;cursor: pointer;}
+			.lottery-reset{position: absolute;width: 100%;left:0;bottom: 40px;}
+		</style>
+		<script>document.documentElement.style.fontSize=(document.documentElement.clientWidth/5)+'px';</script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">幸运转盘</h1>
+		</header>
+		<div class="mui-content" id="app">
+			<div class="lottery-wheel"></div>
+			<img class="lottery-pointer" src="../img/pointer.png" @tap="GetLottery" />
+			<p class="lottery-reset mui-text-center">
+				<button class="mui-btn mui-btn-purple" @tap='ResetWheel'>时光倒流</button>
+			</p>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/Server.js"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					account:'',
+					lotteryPrev:'',
+					lotteryDone:false
+				},
+				mounted:function(){
+					this.$nextTick(function(){
+						mui.init();
+						this.Init();
+					});
+				},
+				methods:{
+					Init:function(){
+						this.account=localStorage.getItem('account')||'';
+						this.lotteryPrev=localStorage.getItem('lotteryPrev');
+						var prev=new Date(this.lotteryPrev).getDate();
+						var now=new Date().getDate();
+						if(prev!=now || ((+new Date())-this.lotteryPrev>24*3600*1000)){
+							this.lotteryDone=false;
+						}else{
+							this.lotteryDone=true;
+						}
+					},
+					GetLottery:function(){
+						if(this.lotteryDone){
+							mui.toast('今天已经抽过奖了，请明天再来');
+							return;
+						}
+						Server.GetLottery({
+							data:{
+								account:this.account
+							},
+							success:function(res){
+								localStorage.setItem('lotteryPrev',(+new Date()));
+								vm.lotteryDone=true;
+								vm.RunWheel(res);
+							},
+							fail:function(res){
+								mui.toast(res.msg);
+							}
+						});
+					},
+					RunWheel:function(res){
+						var num=(this.Rnd(3,6))*360,
+							ang=0;
+						switch(res.data){
+							case 1:
+								ang=this.Rnd(-30,30);
+								break;
+							case 2:
+								ang=this.Rnd(90,150);
+								break;
+							case 3:
+								ang=this.Rnd(210,270);
+								break;
+							default:
+								var arr=[[30,90],[150,210],[270,330]];
+								var _arr=arr[this.Rnd(0,3)];
+								ang=this.Rnd(_arr[0],_arr[1]);
+								break;
+						}
+						mui('.lottery-pointer')[0].style.WebkitTransform='rotate('+(num+ang)+'deg)';
+						mui.later(function(){
+							mui.alert(res.msg,'中奖提示','确定');
+						},2000);
+					},
+					Rnd:function(m,n){
+						return Math.floor(Math.random()*(n-m))+m;
+					},
+					ResetWheel:function(){
+						mui('.lottery-pointer')[0].style.WebkitTransform='rotate(0deg)';
+						vm.lotteryDone=false;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

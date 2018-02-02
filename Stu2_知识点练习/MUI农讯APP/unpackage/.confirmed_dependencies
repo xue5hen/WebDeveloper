@@ -1,0 +1,59 @@
+{
+  "index.html": {
+    "resources": [
+      "tpl/home.html"
+    ],
+    "refer": [
+      "tpl/mine.html",
+      "tpl/home.html",
+      "tpl/publish.html",
+      "tpl/market.html"
+    ]
+  },
+  "tpl/home.html": {
+    "refer": [
+      "tpl/m_detail.html",
+      "tpl/m_news_detail.html",
+      "game/g_scratch.html",
+      "game/g_lottery_wheel.html",
+      "game/g_wordpad.html"
+    ],
+    "resources": []
+  },
+  "tpl/market.html": {
+    "refer": [
+      "tpl/m_info_detail.html"
+    ],
+    "resources": []
+  },
+  "tpl/publish.html": {
+    "refer": [
+      "login/reg.html",
+      "login/login.html",
+      "tpl/m_info_add.html",
+      "tpl/m_news_add.html"
+    ],
+    "resources": []
+  },
+  "login/reg.html": {
+    "refer": [
+      "login/login.html"
+    ],
+    "resources": []
+  },
+  "login/login.html": {
+    "refer": [
+      "login/reg.html"
+    ],
+    "resources": []
+  },
+  "tpl/mine.html": {
+    "refer": [
+      "login/reg.html",
+      "login/login.html",
+      "login/change_password.html",
+      "game/g_wordpad.html"
+    ],
+    "resources": []
+  }
+}

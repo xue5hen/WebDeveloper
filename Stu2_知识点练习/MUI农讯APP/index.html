@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+	<div id="app" v-cloak>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">{{title}}</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+		    <a class="mui-tab-item mui-active" data-id="home">
+		        <span class="mui-icon mui-icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a class="mui-tab-item" data-id="market">
+		        <span class="mui-icon mui-icon-chatbubble"></span>
+		        <span class="mui-tab-label">供求信息</span>
+		    </a>
+		    <a class="mui-tab-item" data-id="publish">
+		        <span class="mui-icon mui-icon-compose"></span>
+		        <span class="mui-tab-label">发布</span>
+		    </a>
+		    <a class="mui-tab-item" data-id="mine">
+		        <span class="mui-icon mui-icon-person"></span>
+		        <span class="mui-tab-label">我的</span>
+		    </a>
+		</nav>
+	</div>
+    <script type="text/javascript" charset="utf-8">
+    	var vm=new Vue({
+    		el:'#app',
+    		data:{
+    			title:'首页',
+//  			mainWebview:null,
+    			tabItems:['home','market','publish','mine'],
+    			tabItemsWebview:{},
+    			tabItemActive:'home'
+    		},
+    		mounted:function(){
+    			this.$nextTick(function(){
+    				this.Init();
+    			});
+    		},
+    		methods:{
+    			Init:function(){
+			      	mui.init();
+    				mui.plusReady(function(){
+//  					vm.mainWebview=plus.webview.currentWebview();
+    					vm.InitTabItems();
+    					vm.InitTabEvent();
+    				});
+    			},
+    			InitTabItems:function(){
+			    	// 预加载底部导航关联页
+    				this.tabItems.forEach(function(v,i){
+    					vm.tabItemsWebview[v]=mui.preload({
+							url:'tpl/'+v+'.html',
+							id:v,
+							styles:{top:'45px',bottom:'51px'}
+						});
+						if(i>0){
+							vm.tabItemsWebview[v].hide();
+						}else{
+							vm.tabItemsWebview[v].show();
+						}
+						// 如果添加到vm.mainWebview就没动画效果了
+//    					vm.mainWebview.append(vm.tabItemsWebview[v]);
+    				});
+    			},
+    			InitTabEvent:function(){
+			      	// 底部导航切换事件
+			  		mui('.mui-bar-tab').on('tap','a',function(){
+			  			var id=this.dataset.id;
+			  			if(vm.tabItemActive!=id){
+			  				vm.tabItemsWebview[vm.tabItemActive].hide('slide-out-left',200);
+			  				vm.tabItemsWebview[id].show('slide-in-right',200);
+							vm.tabItemActive=id;
+			  				vm.title=this.children[this.children.length-1].innerText;
+			  				// 触发子页面的自定义事件（用作刷新数据）
+			  				mui.fire(vm.tabItemsWebview[id],id,{});
+			  			}
+				  	});
+    			}
+    		}
+    	});
+    </script>
+</body>
+</html>
