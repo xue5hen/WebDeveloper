@@ -1,0 +1,13 @@
+@import "./card/card-template.wxss";
+
+page{
+  background-color: #f0f0f0;
+}
+swiper{
+  width: 100%;
+  height: 287rpx;
+}
+swiper-item image{
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,21 @@
+<import src="./video-list/video-list.wxml"/>
+<import src="./videos-grid/videos-grid.wxml"/>
+<view class='search'>
+  <icon type="search" size='13' color='#405f80' class='search-img'></icon>
+  <input type='text' placeholder='神秘巨星、无问西东' placeholder-class='placeholder' bindfocus='onBindFocus' bindchange="onBindChange" />
+  <image wx:if="{{searchPanelShow}}" src='/images/icon/xx.png' class='search-clear' bindtap='onCancelImgTap'></image>
+</view>
+<view class='videos-grid' wx:if="{{!searchPanelShow}}">
+  <view class='videos-template'>
+    <template is="videoListTemplate" data="{{videos:inTheaters,category:'正在热映'}}" />
+  </view>
+  <view class='videos-template'>
+    <template is="videoListTemplate" data="{{videos:comingSoon,category:'即将上映'}}" />
+  </view>
+  <view class='videos-template'>
+    <template is="videoListTemplate" data="{{videos:top250,category:'TOP250'}}" />
+  </view>
+</view>
+<view class='search-panel' wx:if="{{searchPanelShow}}">
+  <template is="videosGridTemplate" data="{{videos:searchResult}}" />
+</view>

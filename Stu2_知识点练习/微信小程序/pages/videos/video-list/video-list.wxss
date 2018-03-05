@@ -1,0 +1,26 @@
+@import "../video/video.wxss";
+.video-list-container{
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+.video-head{
+  padding: 30rpx 20rpx 22rpx;
+}
+.more{
+  float: right;
+}
+.more text{
+  margin-right: 10rpx;
+  color: #1f4ba5;
+}
+.more image{
+  width: 9rpx;
+  height: 16rpx;
+  vertical-align: middle;
+}
+.videos-container{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20rpx;
+}

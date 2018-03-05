@@ -1,0 +1,15 @@
+<template name="starsTemplate">
+  <view class='stars-container'>
+    <view class='stars'>
+      <block wx:for="{{stars}}" wx:for-item="star" wx:key="stars">
+        <image src='{{star?"/images/icon/star.png":"/images/icon/none-star.png"}}'></image>
+      </block>
+      <!-- <image src='{{average>=2?"/images/icon/star.png":"/images/icon/none-star.png"}}'></image>
+      <image src='{{average>=4?"/images/icon/star.png":"/images/icon/none-star.png"}}'></image>
+      <image src='{{average>=6?"/images/icon/star.png":"/images/icon/none-star.png"}}'></image>
+      <image src='{{average>=8?"/images/icon/star.png":"/images/icon/none-star.png"}}'></image>
+      <image src='{{average>=10?"/images/icon/star.png":"/images/icon/none-star.png"}}'></image> -->
+    </view>
+    <text>{{average}}</text>
+  </view>
+</template>

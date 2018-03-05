@@ -1,0 +1,17 @@
+<import src="../video/video.wxml"/>
+<template name="videoListTemplate">
+  <view class='video-list-container'>
+    <view class='video-head'>
+      <text class='slogan'>{{category}}</text>
+      <view catchtap='MoreVideos' class='more' data-category='{{category}}'>
+        <text>更多</text>
+        <image src='/images/icon/arrow-right.png'></image>
+      </view>
+    </view>
+    <view class='videos-container'>
+      <block wx:for="{{videos}}" wx:for-item="video" wx:key="videos">
+        <template is="videoTemplate" data="{{video:video}}" />
+      </block>
+    </view>
+  </view>
+</template>

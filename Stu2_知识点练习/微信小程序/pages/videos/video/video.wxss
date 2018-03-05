@@ -1,0 +1,14 @@
+@import "../stars/stars.wxss";
+.video-container{
+  display: flex;
+  flex-direction: column;
+  padding: 0 22rpx;
+}
+.video-poster{
+  width: 200rpx;
+  height: 270rpx;
+  margin-bottom: 20rpx;
+}
+.video-name{
+  margin-bottom: 16rpx;
+}

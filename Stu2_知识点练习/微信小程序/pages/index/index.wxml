@@ -1,0 +1,13 @@
+<import src="./card/card-template.wxml" />
+<view class='container'>
+  <swiper catchtap="SwiperViewDetail" indicator-dots='true' autoplay='true' interval='3000'>
+    <swiper-item wx:for="{{slideList}}" wx:key="slideList">
+      <image src='{{item.img}}' data-card-id='{{item.cardId}}'></image>
+    </swiper-item>
+  </swiper>
+  <block wx:for="{{cardList}}" wx:key="cardList">
+    <view catchtap="ViewDetail" data-card-id='{{item.cardId}}'>
+      <template is="card" data="{{...item}}" />
+    </view>
+  </block>
+</view>

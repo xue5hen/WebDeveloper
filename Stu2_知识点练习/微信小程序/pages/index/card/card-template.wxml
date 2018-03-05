@@ -1,0 +1,19 @@
+<template name="card">
+  <view class='card'>
+    <view class='card-head'>
+      <image src='{{avatar}}'></image>
+      <text>{{date}}</text>
+    </view>
+    <text class='card-title'>{{title}}</text>
+    <view class='card-body'>
+      <image src='{{img}}'></image>
+      <text>{{info}}</text>
+    </view>
+    <view class='card-foot'>
+      <image src='/images/icon/chat.png'></image>
+      <text>{{collection}}</text>
+      <image src='/images/icon/chat1.png'></image>
+      <text>{{reading}}</text>
+    </view>
+  </view>
+</template>

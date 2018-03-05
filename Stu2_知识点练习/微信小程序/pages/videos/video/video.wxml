@@ -1,0 +1,8 @@
+<import src="../stars/stars.wxml"/>
+<template name="videoTemplate">
+  <view class='video-container' catchtap='onVideoTap' data-video-id="{{video.videoId}}">
+    <image class='video-poster' src='{{video.image}}'></image>
+    <text class='video-name'>{{video.title}}</text>
+    <template is="starsTemplate" data="{{average:video.average,stars:video.stars}}" />
+  </view>
+</template>

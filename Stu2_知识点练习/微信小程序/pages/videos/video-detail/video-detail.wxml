@@ -1,0 +1,4 @@
+<view class='container'>
+  <image class='head-img' src='{{movieImg}}'></image>
+  
+</view>

@@ -1,0 +1,10 @@
+<import src="../video/video.wxml"/>
+<template name="videosGridTemplate">
+  <view class='videos-grid-container'>
+    <block wx:for="{{videos}}" wx:for-item="video" wx:key="videos">
+      <view class='single-video-container'>
+        <template is="videoTemplate" data="{{video:video}}" />
+      </view>
+    </block>
+  </view>
+</template>

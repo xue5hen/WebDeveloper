@@ -1,0 +1,4 @@
+<import src="../videos-grid/videos-grid.wxml"/>
+<view>
+  <template is="videosGridTemplate" data="{{videos:videos}}" />
+</view>
