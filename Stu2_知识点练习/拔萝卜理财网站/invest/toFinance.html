@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>开始理财-拔萝卜P2F票据理财平台</title>
+	<meta name="keywords" content="拔萝卜,票据,理财,投资,P2F,投资理财,互联网金融">
+	<meta name="description" content="拔萝卜票据理财平台，是天成金控集团旗下的专业票据理财平台。拔萝卜采用P2F模式，主打银行票据理财，所有银行承兑汇票均委托浙商银行保管至到期托收，到期由开票银行无条件兑付，是一个安全、透明、高效、便捷的互联网理财平台。">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="../css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<link rel="stylesheet" type="text/css" href="../css/fonts.css">
+	<style type="text/css">
+		.headMenu ul>li:nth-child(2)>a{
+			color:#ff794f;
+		}
+	</style>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+</head>
+<body onload="getProductCategory()">
+	<!-- header start -->
+	<script src="../js/_head.js"></script>
+	<!-- header end -->
+	<!-- main start -->
+	<div class="toFinance wrapper clearfix">
+		<div class="fl">
+			<ul class="projectList">
+				<li class="cur" onclick="javascript:location.href='toFinance.html'"><span>全部项目</span><em id="allNum">0</em></li>
+<!-- 				<li><span>银票苗</span><em>362</em></li>
+<li><span>定期</span><em>4</em></li>
+<li><span>新人标</span><em>2</em></li>
+<li><span>活期</span><em>0</em></li> -->
+			</ul>
+			<img src="../images/toFinance/financialGame.jpg">
+		</div>
+		<div class="fr">
+			<ul class="filter">
+				<li></li>
+				<li>
+					<dl id="investTerm" class="clearfix">
+						<dt>投资期限：</dt>
+						<dd class="selectAll cur" val="-1">全部</dd>
+						<dd val="0">1个月以下</dd>
+						<dd val="1">1~3个月</dd>
+						<dd val="2">3~6个月</dd>
+					</dl>
+				</li>
+				<li>
+					<dl id="yearReturn" >
+						<dt>预计年化收益：</dt>
+						<dd class="selectAll cur" val="-1">全部</dd>
+						<dd val="0">6.00%以上</dd>
+						<dd val="1">6.00%以下</dd>
+					</dl>
+				</li>
+				<li>
+					<dl id="filterRule">
+						<dt>已选条件：</dt>
+						<dd class="unconditional">暂时没有选择过滤条件</dd>
+						<dd class="cur" id="selectA" val=""></dd>
+						<dd class="cur" id="selectB" val=""></dd>
+					</dl>
+				</li>
+			</ul>
+			<div class="projectItems">
+				<h2>产品列表</h2>
+				<table>
+					<tbody>
+						<!-- <tr>
+							<td>银票苗第270期</td>
+							<td></td>
+							<td></td>
+							<td><em>到期由xx银行无条件兑付本息</em></td>
+						</tr>
+						<tr>
+							<td><span><b>6.18</b> %</span><em>固定年化收益</em></td>
+							<td><span><b>26</b> 天</span><em>距结息日</em></td>
+							<td><span><b>18690</b> 元</span><em>可投金额</em></td>
+							<td><a href="ProductDetails.html?gid=369" class="gotoBuyIndex">立即抢购</a></td>
+						</tr>
+						<tr>
+							<td>银票苗第270期</td>
+							<td></td>
+							<td></td>
+							<td><em>到期由xx银行无条件兑付本息</em></td>
+						</tr>
+						<tr>
+							<td><span><b>6.18</b> %</span><em>固定年化收益</em></td>
+							<td><span><b>26</b> 天</span><em>距结息日</em></td>
+							<td><span><b>18690</b> 元</span><em>可投金额</em></td>
+							<td><a href="ProductDetails.html?gid=369" class='gotoBuyIndex notAllowBuyIndex'>已售罄</a></td>
+						</tr>
+						<tr>
+							<td>银票苗第270期</td>
+							<td></td>
+							<td></td>
+							<td><em>到期由xx银行无条件兑付本息</em></td>
+						</tr>
+						<tr>
+							<td><span><b>6.18</b> %</span><em>固定年化收益</em></td>
+							<td><span><b>26</b> 天</span><em>距结息日</em></td>
+							<td><span><b>18690</b> 元</span><em>可投金额</em></td>
+							<td><a href="ProductDetails.html?gid=369" class='gotoBuyIndex notAllowBuyIndex'>还款中</a></td>
+						</tr> -->
+					</tbody>
+				</table>
+				<div class='comingSoon'><img src='../images/toFinance/comingSoon.png'></div>
+				<p class="pagesBox"></p>
+			</div>
+		</div>
+	</div>
+	<!-- main end -->
+	<!-- footer start -->
+	<script src="../js/_foot.js"></script>
+	<!-- footer end -->
+	<script src="../js/public.js"></script>
+	<script src="../js/main.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#investTerm dd").on("click",function(){
+				$(this).addClass("cur").siblings().removeClass("cur");
+				if ($(this).hasClass("selectAll")) {
+					$("#selectA").hide().html("").attr("val","");
+				} else {
+					$(".unconditional").hide();
+					$("#selectA").show().html($(this).html()).attr("val",$(this).attr("val"));
+				}
+				getProductList(1);
+			});
+			$("#yearReturn dd").on("click",function(){
+				$(this).addClass("cur").siblings().removeClass("cur");
+				if ($(this).hasClass("selectAll")) {
+					$("#selectB").hide().html("").attr("val","");
+				} else {
+					$(".unconditional").hide();
+					$("#selectB").show().html($(this).html()).attr("val",$(this).attr("val"));
+				}
+				getProductList(1);
+			});
+			$("#selectA").on("click", function () {
+				$(this).hide().html("").attr("val","");
+				$("#investTerm .selectAll").addClass("cur").siblings().removeClass("cur");
+				getProductList(1);
+			});
+			
+			$("#selectB").on("click", function () {
+				$(this).hide().html("").attr("val","");
+				$("#yearReturn .selectAll").addClass("cur").siblings().removeClass("cur");
+				getProductList(1);
+			});
+			$(".filter dd:not(.unconditional)").on("click",function(){
+				if($("#selectA").html()=="" && $("#selectB").html()==""){
+					$(".unconditional").show();
+				}else{
+					$(".unconditional").hide();
+				}
+			});
+		});
+	</script>
+</body>
+</html>

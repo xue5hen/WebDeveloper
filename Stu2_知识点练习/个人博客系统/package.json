@@ -1,0 +1,21 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookies": "^0.7.1",
+    "dateformat": "^3.0.2",
+    "express": "^4.16.2",
+    "get-folder-size": "^1.0.0",
+    "markdown": "^0.5.0",
+    "mongoose": "^4.13.7",
+    "swig": "^1.4.2"
+  }
+}

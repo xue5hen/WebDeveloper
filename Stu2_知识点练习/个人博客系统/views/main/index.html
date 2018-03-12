@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+	<title>{{systemInfo.blogTitle}}</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/public/img/favicon.png" />
+	<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+	<div class="blog_wrapper" id="app" v-cloak>
+		<div class="panel clearfix">
+			<div class="blog_header">
+				<h1 class="blog_header_title">{{systemInfo.blogTitle}}</h1>
+			</div>
+			<ul class="col-xs-8 blog_navbar">
+				<li class="blog_navbar_item" :class="filter==''?'active':''" @click='GetArticleList({"filter":"","pageDirec":0})'>
+					<span>全部</span>
+				</li>
+				{% for index,category in categoriesList %}
+				<li class="blog_navbar_item" :class="filter=='{{category._id.toString()}}'?'active':''" @click='GetArticleList({"filter":"{{category._id.toString()}}","pageDirec":0})'>
+					<span>{{category.categoryname}}</span>
+				</li>
+				{% endfor %}
+			</ul>
+			<div class="col-xs-4 blog_searchbar">
+				<div class="input-group">
+					<input type="text" v-model='keyword' placeholder="请输入要搜索的关键字" class="form-control" @keydown.enter='SearchArticle'>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-primary" @click='SearchArticle'>
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-8">
+			<div class="panel panel-default" v-show='!IsReadArticle'>
+				<div class="panel-heading">
+					<h3 class="panel-title">文章列表</h3>
+				</div>
+				<div class="panel-body">
+					<ul class="blog_articles">
+						<li class="blog_article" v-for="v in articles">
+							<h3 class="blog_article_title" v-text="v.title"></h3>
+							<div class="blog_article_info">
+								<div class="col-xs-3">
+									<div class="blog_article_info_img">
+										<img :src="v.infoimg||'/public/img/default.svg'" alt="配图">
+									</div>
+								</div>
+								<div class="col-xs-9">
+									<div class="blog_article_info_text">
+										<div class="blog_article_info_summary" v-text="v.info"></div>
+										<a class="btn btn-primary" @click='GetArticle(v._id)'>阅读全文>></a>
+									</div>
+								</div>
+							</div>
+							<p class="blog_article_footer text-gray">
+								<span class="blog_article_footer_item">
+									<span class="glyphicon glyphicon-time"></span>
+									${v.createTime}
+								</span>
+								<span class="blog_article_footer_item">作者：${v.author.username}</span>
+								<span class="blog_article_footer_item">阅读：${v.readCount}</span>
+								<span class="blog_article_footer_item">评论：${v.commentCount}</span>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<div class="panel-footer text-center">
+					<div class="btn-group">
+						<button type="button" class="btn btn-link" @click='GetArticleList({"pageDirec":-2})' :disabled="pageIndex<=1">首页</button>
+						<button type="button" class="btn btn-link" @click='GetArticleList({"pageDirec":-1})' :disabled="pageIndex<=1">上一页</button>
+						<button type="button" class="btn disabled">第${pageIndex}/${pageCount}页</button>
+						<button type="button" class="btn btn-link" @click='GetArticleList({"pageDirec":1})' :disabled="pageIndex>=pageCount">下一页</button>
+						<button type="button" class="btn btn-link" @click='GetArticleList({"pageDirec":2})' :disabled="pageIndex>=pageCount">尾页</button>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default" v-show='IsReadArticle'>
+				<div class="panel-heading">
+					<h3 class="panel-title">正文</h3>
+				</div>
+				<div class="panel-body">
+					<h3 class="text-center">${article.title}</h3>
+					<p class="text-center text-gray">
+						<span class="blog_article_footer_item">作者：${article.author.username}</span>
+						<span class="blog_article_footer_item">
+							<span class="glyphicon glyphicon-time"></span>
+							${article.createTime}
+						</span>
+					</p>
+					<div>${article.content}</div>
+				</div>
+			</div>
+			<!-- <div class="panel panel-default" v-show='IsReadArticle'>
+				<div class="panel-heading">
+					<h3 class="panel-title">评论</h3>
+				</div>
+				<div class="panel-body" v-if='comments.length<=20'>
+					{% if userInfo._id %}
+					<div class="form-group">
+						<textarea v-model='commentText' rows="3" class="form-control" placeholder="不吐不快？那就尽情发声吧"></textarea>
+					</div>
+					<div class="text-right">
+						<input type="button" value="提 交" class="btn btn-primary" @click="AddComment">
+					</div>
+					{% else %}
+					<div class="text-center text-danger">登录后才能评论哦</div>
+					{% endif %}
+				</div>
+				<div class="panel-footer">
+					<div class="text-gray" v-show='comments.length==0'>暂无评论~</div>
+					<ul>
+						<li v-for='comment in comments' class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">${comment.username+' 说道：'}<span class="fr text-gray blog_comment_time">${comment.createTime}</span></h4>
+							</div>
+							<div class="panel-body">${comment.content}</div>
+						</li>
+					</ul>
+				</div>
+			</div> -->
+			<!-- 2018.01.23 使用“来必力”评论方案 -->
+			<div class="panel panel-default" v-show='IsReadArticle'>
+				<div class="panel-body">
+					<!-- 来必力City版安装代码 -->
+					<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzQ3OS8xMDAzNQ==">
+					<script type="text/javascript">
+					   (function(d, s) {
+					       var j, e = d.getElementsByTagName(s)[0];
+					       if (typeof LivereTower === 'function') { return; }
+					       j = d.createElement(s);
+					       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+					       j.async = true;
+					       e.parentNode.insertBefore(j, e);
+					   })(document, 'script');
+					</script>
+					<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+					</div>
+					<!-- City版安装代码已完成 -->
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			{% if userInfo._id %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">用户信息</h3>
+				</div>
+				<div class="panel-body">
+					<p>{{userInfo.username}}</p>
+					{% if userInfo.isAdmin %}
+					<p>欢迎您，管理员！<a href="/admin/" target="_blank" class="btn-link">后台管理</a></p>
+					{% else %}
+					<p>欢迎您光临我的博客~</p>
+					{% endif %}
+					<p class="text-right">
+						<span class="btn-link" @click="Logout">退出登录</span>
+					</p>
+				</div>
+			</div>
+			{% else %}
+			<div class="panel panel-default" v-show="rightPanel==1">
+				<div class="panel-heading">
+					<h3 class="panel-title">用户登录</h3>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class="col-xs-4 control-label">用户名:</label>
+							<div class="col-xs-8">
+								<input type="text" v-model.trim="username" maxlength="16" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-4 control-label">密码:</label>
+							<div class="col-xs-8">
+								<input type="password" v-model="password" maxlength="24" class="form-control">
+							</div>
+						</div>
+						<div class="form-group" v-show="loginMsg">
+							<div class="col-xs-offset-4 col-xs-8 text-center text-danger">${loginMsg}</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-offset-4 col-xs-8">
+								<input type="button" value="登 录" class="btn btn-primary btn-block" @click="UserLogin">
+							</div>
+						</div>
+						<p class="text-right text-gray">
+							没有账号？去<span class="btn-link" @click="rightPanel=2">注册</span>
+						</p>
+					</form>
+				</div>
+			</div>
+			<div class="panel panel-default" v-show="rightPanel==2">
+				<div class="panel-heading">
+					<h3 class="panel-title">用户注册</h3>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class="col-xs-4 control-label">用户名:</label>
+							<div class="col-xs-8">
+								<input type="text" v-model.trim="username" maxlength="16" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-4 control-label">密码:</label>
+							<div class="col-xs-8">
+								<input type="password" v-model="password" maxlength="24" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-4 control-label">密码确认:</label>
+							<div class="col-xs-8">
+								<input type="password" v-model="repassword" maxlength="24" class="form-control">
+							</div>
+						</div>
+						<div class="form-group" v-show="regMsg">
+							<div class="col-xs-offset-4 col-xs-8 text-center text-danger">${regMsg}</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-offset-4 col-xs-8">
+								<input type="button" value="注 册" class="btn btn-primary btn-block" @click="UserRegister">
+							</div>
+						</div>
+						<p class="text-right text-gray">
+							已经有账号？去<span class="btn-link" @click="rightPanel=1">登录</span>
+						</p>
+					</form>
+				</div>
+			</div>
+			{% endif %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<!-- <h3 class="panel-title">热门关键字</h3> -->
+					<h3 class="panel-title">友情链接</h3>
+				</div>
+				<div class="panel-body">
+					<a href="http://www.imooc.com/" class="btn btn-link">慕课网</a>
+					<a href="http://www.zhangxinxu.com/" class="btn btn-link">张鑫旭的博客</a>
+					<a href="http://www.ruanyifeng.com/blog/" class="btn btn-link">阮一峰的博客</a>
+					<a href="http://mongoosejs.com/" class="btn btn-link">mongoose</a>
+					<a href="http://www.sobaidupan.com/" class="btn btn-link">网盘资源</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary blog_popwin_warning" id="blog_popwin_warning">
+			<div class="panel-heading">
+				<h3 class="panel-title">系统提示</h3>
+			</div>
+			<div class="panel-body"></div>
+		</div>
+	</div>
+	<script src="/public/lib/jquery.min.js"></script>
+	<script src="/public/lib/jquery.cookie.js"></script>
+	<script src="/public/lib/bootstrap.min.js"></script>
+	<script src="/public/lib/vue.min.js"></script>
+	<script src="/public/lib/axios.min.js"></script>
+	<script src="/public/js/common.js"></script>
+	<script src="/public/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>我的账户-拔萝卜P2F票据理财平台</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="../css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<link rel="stylesheet" type="text/css" href="../css/fonts.css">
+	<style type="text/css">
+		.headMenu ul>li:nth-child(6)>a{
+			color:#ff794f;
+		}
+	</style>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+</head>
+<body onload="myAccountInit()">
+	<!-- header start -->
+	<script src="../js/_head.js"></script>
+	<!-- header end -->
+	<!-- main start -->
+	<div class="myAccount wrapper clearfix">
+		<div class="fl">
+			<ul class="myHomePage">
+				<li>我的首页</li>
+				<li class="helloMsg"></li>
+				<li class="regTime">上次登录：2015-07-27 11:58:14</li>
+				<li>
+					<span class="icon-id-card"><span class="icon-check-right-hollow"></span></span>
+					<span class="icon-bank-card-01"><span class="icon-check-right-hollow"></span></span>
+					<span class="icon-phone-hollow"><span class="icon-check-right-hollow"></span></span>
+				</li>
+				<li>账户安全<em><span class="securityProgress lowerSecurityLevel"></span></em></li>
+				<li>安全等级：<span class="safeLevel">低</span></li>
+			</ul>
+			<ul class="myAccountList">
+				<li class="cur" index="1">
+					<span class="icon-myHome"></span>账户主页
+				</li>
+				<ul class="items">
+					<li index="1.1">资产明细</li>
+					<li index="1.2">交易记录</li>
+				</ul>
+				<li index="2"><span class="icon-bank-card-02"></span>银行卡管理</li>
+				<li index="3"><span class="icon-money"></span>萝卜币管理</li>
+				<ul class="items">
+					<li index="3.1">赚萝卜币&nbsp;&nbsp;&nbsp;</li>
+					<li index="3.2">萝卜币明细</li>
+				</ul>
+				<li index="4"><span class="icon-bell"></span>消息中心</li>
+				<li index="5"><span class="icon-set"></span>更多设置</li>
+				<li index="6"><span class="icon-flag"></span>活动中心</li>
+			</ul>
+		</div>
+		<div class="myAccountDetail fr">
+			<!-- 账户主页 start -->
+			<div class="userOwnedInfo">
+				<p class="userInfoTitle">
+					<marquee id="scrollNotice" width="650px" onmouseout="this.start()" onmouseover="this.stop()" direction="left"><span style="color:red;">拔萝卜每周三“高收益理财日”，年化收益率10.08%，欢迎抢购！</span></marquee>
+				</p>
+				<ul class="clearfix">
+					<li>
+						<span>当前总资产(元)</span>
+						<br>
+						<strong class="totalAssets">0.00</strong>
+						<p>
+							<input type="button" value="充 值" onclick="recharge()">
+							<input type="button" value="提 现" onclick="withdraw()">
+						</p>
+					</li>
+					<li>
+						<span>当前收益(元)</span>
+						<br>
+						<i class="curIncome">0.00</i>
+						<br>
+						<span>累计收益(元)</span>
+						<br>
+						<i class="accumulatedIncome">0.00</i>
+					</li>
+					<li>
+						<span>冻结资金(元)</span>
+						<br>
+						<i class="frozenFunds">0.00</i>
+						<br>
+						<span>可用资金(元)</span>
+						<br>
+						<i class="availableFunds">0.00</i>
+					</li>
+				</ul>
+			</div>
+			<div class="incomeTrend">
+				<h2>收益走势</h2>
+				<a href="myAccount.html?index='1.1'">更多资产统计</a>
+				<div id="incomeTrendChart"></div>
+			</div>
+			<div class="myBuyLog">
+				<h2>交易记录</h2>
+				<a href="myAccount.html?index='1.2'">更多</a>
+				<table>
+					<tbody id="myBuyLogList">
+						<!-- <tr>
+							<td>
+								<p><strong>银行承兑汇票1234期</strong></p>
+								<p><span class="icon-protect"></span>到期无条件兑付</p>
+							</td>
+							<td>
+								<p><span>13000.00元</span></p>
+								<p>投资金额</p>
+							</td>
+							<td>
+								<p><span>886元</span></p>
+								<p>预期待收收益</p>
+							</td>
+							<td>
+								<p><em>2015/05/06</em></p>
+								<p>交易日期</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p><strong>银行承兑汇票1234期</strong></p>
+								<p><span class="icon-protect"></span>到期无条件兑付</p>
+							</td>
+							<td>
+								<p><span>13000.00元</span></p>
+								<p>投资金额</p>
+							</td>
+							<td>
+								<p><span>886元</span></p>
+								<p>预期待收收益</p>
+							</td>
+							<td>
+								<p><em>2015/05/06</em></p>
+								<p>交易日期</p>
+							</td>
+						</tr> -->
+					</tbody>
+				</table>
+			</div>
+			<!-- 账户主页 end -->
+			<!-- 资产明细 start -->
+			<div class="assetDetail">
+				<h2>资产明细</h2>
+				<ul id="assetDetailList">
+					<!-- <li>
+						<h3>"银企众盈"融资项目第12700期</h3>
+						<div>
+							<p>
+								<em>持仓本金：<span>1000元</span></em>
+								<input type="button" value="赎 回"  class="fr">
+							</p>
+							<p>
+								<em>累计收益：<span>32.64元</span></em>
+								<em class="fr">本息到账时间：<i>2015-07-25</i></em>
+							</p>
+						</div>
+					</li> -->
+				</ul>
+			</div>
+			<!-- 资产明细 end -->
+			<!-- 银行卡管理 start -->
+			<div class="bankCardManagement">
+				<h2>银行卡管理</h2>
+				<div class="bankCardInfo">
+					<p class="infoHeader">注意：</p>
+					<p class="infoContent">
+						您当前真实姓名为 ，当前真实姓名必须与您将要设置的银行卡号的姓名一致，如不一致，请联系客服！
+					</p>
+					<div class="addBankCard fr">
+						<a href="javascript:void(0)" target="_blank">+添加银行卡</a>
+						<br>
+						<em>即可享受安全便捷的移动支付体验</em>
+					</div>
+				</div>
+				<div class="bankCardInfo_bound">
+					<p class="infoHeader">温馨提示：</p>
+					<p class="infoContent">
+						 由于我们实行单卡进出，所以如果您解绑你现在的银行卡，由这个银行卡购买的产品到期后资金将不能退还您的银行卡，请产品到期本金收益退回之后在进行解绑。
+					</p>
+					<div class="bankCard_bound">
+						<p id="boundBankCard"></p>
+						<p>开户名：<span id="boundOwner"></span><em>[已绑定]</em></p>
+						<p>
+							<input type="button" value="解 绑" onclick="onCacelBankCard()">
+							<a href="javascript:void(0);" onclick="contactUsPopWin()">银行卡丢失？</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<!-- 银行卡管理 end -->
+			<!-- 萝卜币管理 start -->
+			<div class="radishCoin">
+				<div class="radishCoinInfo">
+					<span>我的萝卜币</span>
+					<br>
+					<strong>0</strong>
+					<p>
+						<a href="myAccount.html?index='3.1'">赚萝卜币</a>
+						<a href="myAccount.html?index='3.2'">萝卜币明细</a>
+					</p>
+				</div>
+				<div class="earnRadishCoin">
+					<h2>赚萝卜币</h2>
+					<a href="../help/financialQA.html?qcId=4&index=26">萝卜币说明</a>
+					<table>
+						<tbody id="earnRadishCoinList">
+							<tr>
+								<td>
+									<span>+20</span>
+								</td>
+								<td>
+									<strong>每日签到任务</strong>
+									<br>
+									<em>每24小时可签到一次</em>
+								</td>
+								<td>
+									<input type="button" value="签到">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="exchangeGifts">
+					<h2>兑换礼品</h2>
+					<a href="../help/financialQA.html?qcId=4&index=26">萝卜币说明</a>
+					<table>
+						<tbody id="exchangeGiftsList">
+							<!-- <tr>
+								<td>
+									<img src="" alt="奖品LOGO">
+								</td>
+								<td>
+									<strong>10元话费</strong>
+									<br>
+									<em>兑换需话费1000萝卜币</em>
+								</td>
+								<td>
+									<input type="button" value="兑换" onclick="onBuyGift(this, id)">
+								</td>
+							</tr> -->
+						</tbody>
+					</table>
+				</div>
+				<div class="radishCoinDetail">
+					<h2>萝卜币明细</h2>
+					<a href="../help/financialQA.html?qcId=4&index=26">萝卜币说明</a>
+					<table>
+						<tbody id="radishCoinDetailList">
+						<!-- 	<tr>
+							<td>
+								<span class="icon-solid-disc"></span>
+							</td>
+							<td>
+								<strong>每日签到任务</strong>
+								<br>
+								<em>2015-07-08</em>
+							</td>
+							<td>
+								<span>+20</span>
+							</td>
+						</tr> -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- 萝卜币管理 end -->
+			<!-- 消息中心 start -->
+			<div class="messageCenter">
+				<h2>全部消息</h2>
+				<!-- <a href="#">全部标记为已读</a> -->
+				<ul id="messageList">
+					<!-- <li>
+						<span class="icon-solid-disc"></span>
+						<span>系统公告</span>：
+						<span class="messageInfo">各位朋友，因拔萝卜周年庆活动参与人数过多，导致今早5点...</span>
+						<p class="messageContent">
+							各位朋友，因拔萝卜周年庆活动参与人数过多，导致今早5点...各位朋友，因拔萝卜周年庆活动参与人数过多，导致今早5点...
+						</p>
+						<span class="unRead">未读</span>
+						<span class="icon-right-arrow"></span>
+						<em>2015.06.07 15:21</em>
+					</li>
+					<li>
+						<span class="icon-solid-disc"></span>
+						<span>系统公告</span>：各位朋友，因拔萝卜周年庆活动参与人数过多，导致今早5点...
+						<span class="unRead">未读</span>
+						<span class="icon-right-arrow"></span>
+						<em>2015.06.07 15:21</em>
+					</li> -->
+				</ul>
+			</div>
+			<!-- 消息中心 end -->
+			<!-- 更多设置 start -->
+			<div class="moreSetting">
+				<h2>安全设置</h2>
+				<div class="securityLevel">
+					<p>
+						您现在的安全级别
+						<em><span class="securityProgress lowerSecurityLevel"></span></em>
+					</p>
+					<p>
+						<span>高</span>
+						<span>中</span>
+						<span>低</span>
+					</p>
+				</div>
+				<div class="settingDetail">
+					<div>
+						<h3>实名认证<em>（根据相关法律和法规，您需要完成实名认证才能进行投资）</em></h3>
+						<form id="authenticationForm">
+							<label>
+								真实姓名
+								<input type="text" name="username" id="username" placeholder="请输入真实姓名">
+							</label>
+							<label for="idCard">
+								身份证号码
+								<input type="text" name="idCard" id="idCard" placeholder="请输入身份证号码">
+							</label>
+							<label>
+								<input type="button" value="提交认证" class="submitBtn">
+							</label>
+							<p>
+								<strong>温馨提示：</strong><br>
+								1.一个身份信息（一张身份证）只能绑定一个账号；<br>
+								2.每个账户最多提交三次身份信息验证申请，如果超过三次您的账户将被锁定，请联系在线客服或拨打400-101-3339帮助解锁；<br>
+								3.充值之前需要先完成实名认证！
+							</p>
+							<img src="../images/myAccount/authenticated.png" id="authenticatedImg">
+						</form>
+						<p></p>
+					</div>
+					<table id="otherSetting">
+						<tbody>
+							<tr>
+								<td>手机号码</td>
+								<td id="mobile_bound">拔萝卜会通过手机号发送注册验证短信，使用手机号登陆会更加便捷</td>
+								<td><a href="javascript:changeMobilePopWin();">更换</a></td>
+							</tr>
+							<tr>
+								<td>登陆密码</td>
+								<td>********</td>
+								<td><a href="javascript:changePwdPopWin();">修改</a></td>
+							</tr>
+							<tr>
+								<td>银行卡设置</td>
+								<td id="bankBoundState">用于在拔萝卜提现充值，设置银行卡会使 操作更加便捷</td>
+								<td><a href="javascript:void(0);" id="changeBoundState" target="_blank">未绑定</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- 更多设置 end -->
+			<!-- 活动中心 start -->
+			<div class="activityCenter">
+				<h2>全部活动</h2>
+				<ul id="activityList">
+					<!-- <li>
+						<h3>邀请好友送现金 大家一起来赚钱</h3>
+						<p><em>活动时间：2015-07-02</em></p>
+						<img src="">
+						<p>
+							三重任务奖金等你拿，每推荐1位好友注册送20元红包，好友投资嘉财有道可再获0.4%奖金。邀请好友赚钱? 1台电脑 or 1部手...
+						</p>
+					</li> -->
+				</ul>
+			</div>
+			<!-- 活动中心 end -->
+			<p class="pagesBox">
+				<!-- <a href="javascript:void(0)" class="prev">上一页</a>
+				<a href="javascript:void(0)" class="cur">1</a>
+				<a href="javascript:void(0)">2</a>
+				<a href="javascript:void(0)" class="next">下一页</a> -->
+			</p>
+			<p class="activity clearfix">
+				<a href="myAccount.html?index='3.1'" class="fl"><img src="../images/myAccount/activity01.jpg"></a>
+				<a href="../help/financialQA.html" class="fr"><img src="../images/myAccount/activity02.jpg"></a>
+			</p>
+		</div>
+		<!-- 灯箱 start -->
+		<div class="mask"></div>
+		<div class="popWin mobileChangePopWin">
+			<p><span class="popWinTitle">更换手机</span><button class="closeBtn fr">&times;</button></p>
+			<div class="content">
+				<form id="changeMobileForm01" class="changeForm">
+					<label>
+						&nbsp;&nbsp;&nbsp;登录密码：
+						<input type="password" name="password_cm" id="password_cm" placeholder="请输入密码">
+					</label>
+					<label>
+						原手机号码：
+						<input type="text" name="phone_cm" id="phone_cm" placeholder="请输入原手机号码">
+						<input type="button" value="获取验证码" onclick="sendMVCode_cm(this, 'phone_cm')" class="getMVCode">
+					</label>
+					<label for="mobileVCode_cm">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验证码：
+						<input type="text" name="mobileVCode_cm" id="mobileVCode_cm" placeholder="请输入验证码">
+					</label>
+					<label>
+						<input type="button" value="下一步" class="submitBtn" onclick="changeMobileStep01()">
+					</label>
+				</form>
+				<form id="changeMobileForm02" class="changeForm">
+					<label>
+						新手机号码：
+						<input type="text" name="newPhone_cm" id="newPhone_cm" placeholder="请输入新手机号码">
+						<input type="button" value="获取验证码" onclick="sendMVCode_cm(this, 'newPhone_cm')" class="getMVCode">
+					</label>
+					<label for="newMobileVCode_cm">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验证码：
+						<input type="text" name="newMobileVCode_cm" id="newMobileVCode_cm" placeholder="请输入验证码">
+					</label>
+					<label>
+						<input type="button" value="确认修改" class="submitBtn" onclick="changeMobileStep02()">
+					</label>
+				</form>
+				<form id="changeLoginPwd" class="changeForm">
+					<label>
+						&nbsp;&nbsp;&nbsp;手机号码：
+						<input type="text" name="phone_pwd" id="phone_pwd" placeholder="请输入手机号码">
+						<input type="button" value="获取验证码" onclick="sendMVCode_cm(this, 'phone_pwd')" class="getMVCode">
+					</label>
+					<label for="mobileVCode_pwd">
+						手机验证码：
+						<input type="text" name="mobileVCode_pwd" id="mobileVCode_pwd" placeholder="请输入验证码">
+					</label>
+					<label>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新密码：
+						<input type="password" name="password01_pwd" id="password01_pwd" placeholder="请输入密码">
+					</label>
+					<label>
+						确认新密码：
+						<input type="password" name="password02_pwd" id="password02_pwd" placeholder="请再次输入密码">
+					</label>
+					<label>
+						<input type="button" value="确认修改" class="submitBtn" onclick="updatePass()">
+					</label>
+				</form>
+			</div>
+		</div>
+		<div class="popWin addBankCardPopWin">
+			<p><span class="popWinTitle">添加银行卡</span><button class="closeBtn fr">&times;</button></p>
+			<div class="content">
+				<form id="addBankCardForm">
+					<label for="ownedName">
+						姓名
+						<input type="text" name="ownedName" id="ownedName" placeholder="请输入手机号码">
+					</label>
+					<label for="ownedIdCard">
+						身份证号
+						<input type="text" name="ownedIdCard" id="ownedIdCard" placeholder="请输入身份证号">
+					</label>
+					<label for="ownedBankCard">
+						银行卡号
+						<input type="text" name="ownedBankCard" id="ownedBankCard" placeholder="请输入银行卡号">
+					</label>
+					<label for="ownedMobile">
+						预留手机号
+						<input type="text" name="ownedMobile" id="ownedMobile" placeholder="请输入银行预留手机号">
+					</label>
+					<label>
+						验证码
+						<input type="text" name="bankMVCode" id="bankMVCode" placeholder="请输入验证码">
+						<input type="button" value="获取验证码">
+					</label>
+					<label>
+						<input type="button" value="完成" class="submitBtn">
+					</label>
+				</form>
+				<p>
+					<strong>温馨提示：</strong><br>
+					1、如果你填写的银行卡号不正确，提现交易将无法成功，提现金额将返回账户。<br>
+					2、用户尽量填写比较大众的银行(如农行、工行、建行、中国银行等)，避免填写那些比较少见的银行。
+				</p>
+			</div>
+		</div>
+		<div class="popWin giftPopWin">
+			<p><span class="popWinTitle">礼品兑换</span><button class="closeBtn fr">&times;</button></p>
+			<div class="content">
+				<p class="giftName"></p>
+				<p class="infoContent"></p>
+				<p>
+					<input type="button" value="确定" id="toDo">
+					<input type="button" value="取消" id="toCancle" onclick="toCancle()">
+				</p>
+			</div>
+		</div>
+		<div class="popWin rechargePopWin">
+			<p><span class="popWinTitle">充值</span><button class="closeBtn fr">&times;</button></p>
+			<div class="content">
+				<label for="rechargeCard">
+					&nbsp;&nbsp;&nbsp;银行卡
+					<input type="text" name="rechargeCard" id="rechargeCard" value="尾号：2057">
+				</label>
+				<label for="rechargeMoney">
+					充值金额
+					<input type="text" name="rechargeMoney" id="rechargeMoney">元
+				</label>
+				<label>
+					<input type="button" value="充 值" class="submitBtn" onclick="doRecharge()">
+				</label>
+			</div>
+		</div>
+		<div class="popWin withdrawPopWin">
+			<p><span class="popWinTitle">提现</span><button class="closeBtn fr">&times;</button></p>
+			<div class="content">
+				<label for="withdrawCard">
+					&nbsp;&nbsp;&nbsp;银行卡
+					<input type="text" name="withdrawCard" id="withdrawCard" value="尾号：2057">
+				</label>
+				<label for="withdrawMoney">
+					提款金额
+					<input type="text" name="withdrawMoney" id="withdrawMoney">元
+				</label>
+				<label>
+					<input type="button" value="提 现" class="submitBtn" onclick="doDraw()">
+				</label>
+			</div>
+		</div>
+		<div class="popWin warningPopWin">
+			<p><span class="popWinTitle">温馨提示</span><button class="closeBtn fr">&times;</button></p>
+			<div class="content">
+				<p></p>
+			</div>
+		</div>
+		<!-- 灯箱 end -->
+	</div>
+	<!-- main end -->
+	<!-- footer start -->
+	<script src="../js/_foot.js"></script>
+	<!-- footer end -->
+	<script src="echarts/echarts.js"></script><!-- 图表JS -->
+	<script src="../js/md5.js"></script>
+	<script src="../js/public.js"></script>
+	<script src="../js/main.js"></script>
+</body>
+</html>

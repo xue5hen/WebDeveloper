@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="yb_html">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+	<title>在线聊天室（WebSocket）</title>
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/fonts.css">
+	<link rel="stylesheet" href="./css/common.css">
+	<!--[if lt IE 10]>
+	<script>alert("您的IE浏览器版本过低！为了更好的体验，请升级IE浏览器的版本或者更换其他浏览器。如：谷歌、火狐等");</script>
+	<![endif]-->
+</head>
+<body class="yb_body">
+	<div class="yb_chatroom yb_flexbox_row" id="app" v-cloak>
+		<div class="yb_chatroom_memberlist yb_flexbox_col">
+			<h2 class="yb_chatroom_memberlist_title yb_block">成员列表</h2>
+			<ul class="yb_flexbox_col_item yb_panel">
+				<li class="yb_chatroom_member">
+					<span class="yb_chatroom_member_head yb_chatroom_member_myhead" :class="IsBoy?'icon-boy':'icon-girl'" @click="ChangeHead">
+						<span class="path1"></span>
+						<span class="path2"></span>
+						<span class="path3"></span>
+						<span class="path4"></span>
+						<span class="path5"></span>
+						<span class="path6"></span>
+						<span class="path7"></span>
+						<span class="path8"></span>
+						<span class="path9"></span>
+					</span>
+					<input class="yb_chatroom_member_myname" type="text" v-model="User.name" placeholder="用户名" :title="User.name" @change="SetUserInfo">
+					<span class="yb_chatroom_member_info">本机</span>
+				</li>
+				<li class="yb_chatroom_member" v-for="Member in Members">
+					<span class="yb_chatroom_member_head" :class="Member.icon">
+						<span class="path1"></span>
+						<span class="path2"></span>
+						<span class="path3"></span>
+						<span class="path4"></span>
+						<span class="path5"></span>
+						<span class="path6"></span>
+						<span class="path7"></span>
+						<span class="path8"></span>
+						<span class="path9"></span>
+					</span>
+					{{Member.name}}
+				</li>
+			</ul>
+			<p class="yb_font_gray yb_contactme yb_block">
+				按Alt+1联系作者
+				<input type="button" accesskey="1" class="hide" @click="ContactMe">
+			</p>
+		</div>
+		<div class="yb_chatroom_msgwindow yb_flexbox_row_item yb_flexbox_col">
+			<h2 class="yb_chatroom_msgwindow_title yb_block">
+				聊天信息
+				<span class="yb_font_gray fr">
+					<span class="icon-connection yb_btn_conn" :class="IsConn?'yb_font_green':''" @click="TabConn" :title="IsConn?'点击离线':'点击上线'"></span>
+					<span class="icon-close yb_btn_close" @click="CloseWin" title="关闭聊天室"></span>
+				</span>
+			</h2>
+			<div class="yb_chatroom_msghistory yb_flexbox_col_item yb_panel">
+				<ul>
+					<li v-for="Msg in HistoryMsg" class="yb_chatroom_msghistory_item">
+						<p class="yb_chatroom_msghistory_item_title">
+							<span>{{Msg.name}}</span>
+							<span>{{Msg.time}}</span>
+						</p>
+						<pre class="yb_chatroom_msghistory_item_content yb_block" v-html="str2emoji(Msg.msg)"></pre>
+					</li>
+				</ul>
+			</div>
+			<ul class="yb_chatroom_msglnk">
+				<li class="yb_toolbtn fl" @click="ShowEmojiSelector=!ShowEmojiSelector">
+					<span class="icon-emoji-2" title="表情"></span>
+					<ul class="yb_chatroom_emojiselector clearfix" v-show="ShowEmojiSelector" @click.stop>
+						<li v-for="i in 18" class="yb_chatroom_emoji fl" :class="'icon-emoji-'+i" @click="InsertEmoji(i)"></li>
+					</ul>
+				</li>
+				<li v-for="ToolBtn in ToolBtns" class="yb_toolbtn fl" :title="ToolBtn.title">
+					<span :class="ToolBtn.icon"></span>
+				</li>
+				<li class="yb_toolbtn fr" title="清空历史记录" @click="ClearBin">
+					<span class="icon-recycle"></span>
+				</li>
+			</ul>
+			<textarea class="yb_chatroom_msginput" v-model.trim="Message">
+			</textarea>
+			<p class="yb_chatroom_msgsend yb_block">
+				<input type="button" value="发送(Ctrl+Enter)" class="yb_btn yb_btn_success" @click="SendMsg">
+			</p>
+		</div>
+	</div>
+	<script src="./lib/vue.min.js"></script>
+	<script src="./js/chatroom.js"></script>
+</body>
+</html>

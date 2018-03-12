@@ -1,0 +1,31 @@
+{% extends './layout.html' %}
+{% block content %}
+	<table id="comments_table"></table>
+	<div id="tb">
+	    <div class="btn btn-danger" @click="CallCommentPopWin('del')"><span class="glyphicon glyphicon-minus"></span>删除评论</div>
+	</div>
+{% endblock %}
+{% block popwin %}
+	<!-- 删除评论弹窗 start -->
+	<div class="modal fade" id="del_comment">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="del_comments_title">删除评论</h4>
+				</div>
+				<div class="modal-body">
+					<p>确定要删除选中的评论？</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" @click="DelComment">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 删除评论弹窗 end -->
+{% endblock %}
+{% block script %}
+	<script src="/public/js/ad_comments.js"></script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends './layout.html' %}
+{% block content %}
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">常用功能</h3>
+		</div>
+		<div class="panel-body">
+			<a class="blog_admin_menu_btnlink btn btn-warning" href="/admin/users?g1=1">
+				<i class="blog_admin_menu_btnlink_icon glyphicon glyphicon-user"></i>
+				<span class="blog_admin_menu_btnlink_text">用户管理</span>
+			</a>
+			<a class="blog_admin_menu_btnlink btn btn-danger" href="/admin/categories?g1=2">
+				<i class="blog_admin_menu_btnlink_icon glyphicon glyphicon-th"></i>
+				<span class="blog_admin_menu_btnlink_text">分类管理</span>
+			</a>
+			<a class="blog_admin_menu_btnlink btn btn-success" href="/admin/articles?g1=3&g2=0">
+				<i class="blog_admin_menu_btnlink_icon glyphicon glyphicon-list-alt"></i>
+				<span class="blog_admin_menu_btnlink_text">文章列表</span>
+			</a>
+			<a class="blog_admin_menu_btnlink btn btn-primary" href="/admin/comments?g1=3&g2=3">
+				<i class="blog_admin_menu_btnlink_icon glyphicon glyphicon-comment"></i>
+				<span class="blog_admin_menu_btnlink_text">评论列表</span>
+			</a>
+		</div>
+	</div>
+	<div class="panel panel-default blog_admin_systeminfo">
+		<div class="panel-heading">
+			<h3 class="panel-title">系统信息</h3>
+		</div>
+		<div class="panel-body blog_admin_systeminfo_content">
+			<table class="table">
+				<tr>
+					<td width="200">系统版本：</td>
+					<td>{{systemInfo.blogName}} {{systemInfo.blogVersion}}</td>
+				</tr>
+				<tr>
+					<td>服务器名称：</td>
+					<td>{{systemInfo.systemName}}</td>
+				</tr>
+				<tr>
+					<td>服务器版本：</td>
+					<td>{{systemInfo.platform}} / {{systemInfo.release}}</td>
+				</tr>
+				<tr>
+					<td>服务器IP地址：</td>
+					<td>{{systemInfo.serverIp}}</td>
+				</tr>
+				<tr>
+					<td>本地IP地址：</td>
+					<td>{{systemInfo.localIp}}</td>
+				</tr>
+				<tr>
+					<td>数据库：</td>
+					<td>Mongodb</td>
+				</tr>
+				<tr>
+					<td>当前数据库大小：</td>
+					<td>{{systemInfo.dbSize}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+{% block script %}
+	<script src="/public/js/ad_index.js"></script>
+{% endblock %}

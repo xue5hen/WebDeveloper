@@ -1,0 +1,40 @@
+{% extends './layout.html' %}
+{% block content %}
+	<div class="panel panel-default blog_admin_content_panel">
+		<div class="panel-heading">
+			<h3 class="panel-title">添加文章</h3>
+		</div>
+		<div class="panel-body blog_admin_content_panel_body" v-show='!addFinished'>
+			<div class="form-group">
+				<label>标题:</label>
+				<input type="text" v-model.trim="title" maxlength="50" class="form-control" placeholder="标题长度不超过50字">
+			</div>
+			<div class="form-group">
+				<label>分类:</label>
+				<select class="form-control" v-model='category'>
+					{% for category in categoriesList %}
+					<option value="{{category._id.toString()}}">{{category.categoryname}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="form-group">
+				<label>简介:</label>
+				<textarea v-model.trim="info" class="form-control" rows="3"></textarea>
+			</div>
+			<div class="form-group blog_admin_content_panel_content">
+				<label>正文:</label>
+				<textarea v-model.trim="content" class="form-control"></textarea>
+			</div>
+			<div class="text-right">
+				<input type="button" value="提 交" class="btn btn-primary" @click="AddArticle">
+			</div>
+		</div>
+		<div class="panel-body blog_admin_content_panel_body" v-show='addFinished'>
+			<p><a href="javascript:;" @click='addFinished=false'>继续添加</a></p>
+			<p><a href="/admin/articles?g1=3&g2=0">跳转到文章列表</a></p>
+		</div>
+	</div>
+{% endblock %}
+{% block script %}
+	<script src="/public/js/ad_articleAdd.js"></script>
+{% endblock %}

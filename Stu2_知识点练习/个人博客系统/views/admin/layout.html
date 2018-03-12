@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html class="fullpage_html">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+	<title>{{systemInfo.blogName}} - 后台管理</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/public/img/favicon.png" />
+	<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/public/css/bootstrap-table.min.css">
+	<link rel="stylesheet" href="/public/css/fonts.css">
+	<link rel="stylesheet" href="/public/css/style.css">
+</head>
+{% if userInfo.isAdmin %}
+<body class="fullpage_body">
+	<div class="blog_admin_header">
+		<div class="blog_admin_header_item blog_admin_header_nameplate">
+			<a href="/" class="blog_admin_header_nameplate_logo fl"><img alt="LOGO" src="/public/img/logo.svg"></a>
+			<h2 class="blog_admin_header_nameplate_text fl">{{systemInfo.blogName}}</h2>
+		</div>
+		<h5 class="blog_admin_header_item blog_admin_header_userinfo">欢迎您，{{userInfo.username}}</h5>
+		<a class="blog_admin_header_item blog_admin_header_logout btn-link" @click='Logout'>退出系统</a>
+	</div>
+	<div class="blog_admin_body" id="app">
+		<div class="fl blog_admin_nav">
+			<ul class="nav nav-list">
+				<li>
+					<a href="/admin/?g1=0">
+						<i class="glyphicon glyphicon-home"></i>
+						<span class="menu-text">管理首页</span>
+					</a>
+				</li>
+				<li>
+					<a href="/admin/users?g1=1">
+						<i class="glyphicon glyphicon-user"></i>
+						<span class="menu-text">用户管理</span>
+					</a>
+				</li>
+				<li>
+					<a href="/admin/categories?g1=2">
+						<i class="glyphicon glyphicon-th"></i>
+						<span class="menu-text">分类管理</span>
+					</a>
+				</li>
+				<li class="isParent">
+					<a href="javascript:void(0);">
+						<i class="glyphicon glyphicon-list-alt"></i>
+						<span class="menu-text">内容管理</span>
+						<b class="glyphicon glyphicon-menu-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="/admin/articles?g1=3&g2=0">
+								<i class="icon-chevrons-right"></i>
+								文章列表
+							</a>
+						</li>
+						<li>
+							<a href="/admin/articleAdd?g1=3&g2=1">
+								<i class="icon-chevrons-right"></i>
+								添加文章
+							</a>
+						</li>
+						<li>
+							<a href="/admin/articleEdit?g1=3&g2=2">
+								<i class="icon-chevrons-right"></i>
+								编辑文章
+							</a>
+						</li>
+						<li>
+							<a href="/admin/comments?g1=3&g2=3">
+								<i class="icon-chevrons-right"></i>
+								评论列表
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="fl blog_admin_content">{% block content %}{% endblock %}</div>
+		<div class="blog_popwin">{% block popwin %}{% endblock %}</div>
+		<div class="panel panel-primary blog_popwin_warning" id="blog_popwin_warning">
+			<div class="panel-heading">
+				<h3 class="panel-title">系统提示</h3>
+			</div>
+			<div class="panel-body"></div>
+		</div>
+	</div>
+	<div class="blog_admin_footer text-center">Copyright © {{systemInfo.blogName}} {{systemInfo.blogVersion}}</div>
+	<script src="/public/lib/jquery.min.js"></script>
+	<script src="/public/lib/jquery.cookie.js"></script>
+	<script src="/public/lib/bootstrap.min.js"></script>
+	<script src="/public/lib/bootstrap-table.min.js"></script>
+	<script src="/public/lib/bootstrap-table-zh-CN.min.js"></script>
+	<script src="/public/lib/vue.min.js"></script>
+	<script src="/public/lib/axios.min.js"></script>
+	<script src="/public/js/common.js"></script>
+	{% block script %}{% endblock %}
+{% else %}
+<body class="fullpage_body blog_illegal_operation">
+	<div class="col-xs-offset-3 col-xs-6 alert alert-danger text-center">
+		<h3>非法操作</h3>
+		<p>只有管理员才能进入后台</p>
+		<a href="/" class="alert-link">回到博客首页</a>
+	</div>
+{% endif %}
+</body>
+</html>

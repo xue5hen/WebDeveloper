@@ -1,0 +1,72 @@
+/* public start */
+body {font-size:16px;}
+ul{list-style: none;padding-left: 0;}
+a{color: #333;}
+iframe{width: 100%;border:none;}
+textarea{resize: none;}
+table{width: 100%;}
+td,th{text-align: center;}
+embed{display: block;}
+pre{white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;}
+/* 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸 */  
+::-webkit-scrollbar{width: 14px;height: 14px;background-color: #f5f5f5;}
+/* 定义滚动条轨道 内阴影+圆角 */  
+::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);border-radius: 10px;background-color: #f5f5f5;}
+/* 定义滑块 内阴影+圆角 */  
+::-webkit-scrollbar-thumb{border-radius: 10px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);background-color: #ccc;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {-webkit-appearance: none;}
+input[type="number"]{-moz-appearance: textfield;}
+.fl{float: left;}
+.fr{float: right;}
+.hide,
+[v-cloak]{display: none !important;}
+.yb_panel{padding: 1rem;}
+.yb_block{padding-left: 1rem;padding-right: 1rem;}
+.yb_flexbox_col{display: flex;display: -webkit-flex;flex-direction: column;}
+.yb_flexbox_row{display: flex;display: -webkit-flex;flex-direction: row;}
+.yb_flexbox_center{display: flex;display: -webkit-flex;justify-content: center;align-items: center;}
+.yb_flexbox_col_item{height: 0;flex-grow: 1;}
+.yb_flexbox_row_item{width: 0;flex-grow: 1;}
+.yb_ab_center{position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);transform: translate(-50%,-50%);}
+.yb_btn{display: inline-block;padding: 6px 12px;line-height: 1.4;text-align: center;white-space: nowrap;-ms-touch-action: manipulation;touch-action: manipulation;
+	cursor: pointer;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-image: none;border: 1px solid transparent;border-radius: 4px;}
+.yb_btn_conn,
+.yb_btn_close{margin-left: 0.5rem;cursor: pointer;}
+.yb_btn_success{color: #fff;background-color: #5cb85c;border-color: #4cae4c;}
+.yb_btn_success:hover{background-color: #449d44;border-color: #398439;box-shadow: inset 0 3px 5px rgba(0,0,0,.125);}
+.yb_toolbtn{display: inline-block;position: relative;padding: 0.2rem;margin: 0.1rem;font-size: 1.4rem;text-align: center;color: #ccc;cursor: pointer;}
+.yb_toolbtn:hover{background-color: #d0d1d4;color: #7f8393;}
+.yb_toolbtn.active{background-color: #b8b9bc;color: #7f8393;}
+.yb_font_gray{color: #7f8393;}
+.yb_font_green{color: #5cb85c;}
+/* public end */
+/* 页面布局 start */
+.yb_html{font-size: 20px;overflow: hidden;}
+.yb_html,
+.yb_body,
+.yb_chatroom{height: 100%;}
+.yb_body{min-width: 48rem;padding:0.8rem;background-color: #e5ecec;}
+.yb_chatroom{border:1px solid #f1f1f1;border-radius:0.4rem;box-shadow: 0 0 1rem #ccc;background-color: #fff;}
+.yb_chatroom_memberlist{width: 15rem;border-right: 1px solid #e9eaea;box-shadow: 0 0 2rem #e9eaea;}
+.yb_chatroom_memberlist_title,
+.yb_chatroom_msgwindow_title{font-size:1rem;font-weight:100;line-height: 3rem;border-bottom: 1px solid #dedede;}
+.yb_chatroom_memberlist ul{overflow-y: auto;}
+.yb_chatroom_member{position: relative;border-bottom: 1px solid #f2f3f3;line-height: 3rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.yb_chatroom_member+.yb_chatroom_member{margin-top: 0.3rem;}
+.yb_chatroom_member_head{display: inline-block;width:2rem;height: 2rem;margin-right:0.5rem;border-radius: 50%;background-color: #ddd;font-size: 1.62rem;text-align: center;}
+.yb_chatroom_member_myhead{cursor: pointer;}
+.yb_chatroom_member_myname{height:2rem;font-size: inherit;border:none;}
+.yb_chatroom_member_info{position: absolute;left: 1rem;bottom:0.2rem;padding: 0.2rem;border-radius: 0.2rem;line-height: 1;font-size: 0.6rem;color: #fff;background-color: #f93;}
+.yb_chatroom_msghistory{border-bottom: 1px solid #dedede;overflow-y: auto;background-color: #f3f7f8;}
+.yb_chatroom_msghistory_item_title{font-size: 0.7rem;line-height: 2;color: #a2abb1;}
+.yb_chatroom_msghistory_item_content{color: #666;}
+.yb_chatroom_msghistory_item_content [class^='icon-emoji-']{margin-left: 0.1rem;margin-right: 0.1rem;}
+.yb_chatroom_msglnk{height: 2rem;padding-left: 0.5rem;padding-right: 0.5rem;}
+.yb_chatroom_emojiselector{position: absolute;left:0;bottom: 2rem;width: 14rem;min-height: 8rem;padding: 0.3rem;border:1px solid #eee;box-shadow: 0 0 1rem #dedede;background-color: #fff;}
+.yb_chatroom_emoji{width: 2rem;height: 2rem;line-height: 2rem;margin:0.1rem;text-align: center;}
+.yb_chatroom_emoji:hover{background-color: #f3f3f4;}
+.yb_chatroom_msginput{height: 8rem;padding: 0.5rem;border:none;font-size: 0.8rem;overflow: auto;}
+.yb_chatroom_msgsend{height: 2.4rem;line-height: 2.4rem;text-align: right;border-top: 1px solid #eee;}
+.yb_contactme{height: 2.4rem;line-height: 2.4rem;font-size: 0.6rem;border-top: 1px solid #eee;}
+/* 页面布局 end */

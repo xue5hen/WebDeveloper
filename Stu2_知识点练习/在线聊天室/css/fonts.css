@@ -1,0 +1,188 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?cbkf95');
+  src:  url('fonts/icomoon.eot?cbkf95#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?cbkf95') format('truetype'),
+    url('fonts/icomoon.woff?cbkf95') format('woff'),
+    url('fonts/icomoon.svg?cbkf95#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-boy .path1:before {
+  content: "\e900";
+  color: rgb(242, 195, 69);
+}
+.icon-boy .path2:before {
+  content: "\e901";
+  margin-left: -1em;
+  color: rgb(77, 132, 109);
+}
+.icon-boy .path3:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(238, 213, 161);
+}
+.icon-boy .path4:before {
+  content: "\e903";
+  margin-left: -1em;
+  color: rgb(92, 73, 72);
+}
+.icon-boy .path5:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(185, 201, 194);
+}
+.icon-boy .path6:before {
+  content: "\e905";
+  margin-left: -1em;
+  color: rgb(185, 201, 194);
+}
+.icon-boy .path7:before {
+  content: "\e906";
+  margin-left: -1em;
+  color: rgb(185, 201, 194);
+}
+.icon-boy .path8:before {
+  content: "\e907";
+  margin-left: -1em;
+  color: rgb(86, 165, 126);
+}
+.icon-boy .path9:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(86, 165, 126);
+}
+.icon-boy .path10:before {
+  content: "\e909";
+  margin-left: -1em;
+  color: rgb(86, 165, 126);
+}
+.icon-girl .path1:before {
+  content: "\e90a";
+  color: rgb(244, 179, 179);
+}
+.icon-girl .path2:before {
+  content: "\e90b";
+  margin-left: -1em;
+  color: rgb(254, 207, 119);
+}
+.icon-girl .path3:before {
+  content: "\e90c";
+  margin-left: -1em;
+  color: rgb(252, 233, 234);
+}
+.icon-girl .path4:before {
+  content: "\e90d";
+  margin-left: -1em;
+  color: rgb(252, 186, 111);
+}
+.icon-girl .path5:before {
+  content: "\e90e";
+  margin-left: -1em;
+  color: rgb(160, 217, 246);
+}
+.icon-girl .path6:before {
+  content: "\e90f";
+  margin-left: -1em;
+  color: rgb(254, 254, 254);
+}
+.icon-girl .path7:before {
+  content: "\e910";
+  margin-left: -1em;
+  color: rgb(160, 217, 246);
+}
+.icon-girl .path8:before {
+  content: "\e911";
+  margin-left: -1em;
+  color: rgb(160, 217, 246);
+}
+.icon-girl .path9:before {
+  content: "\e912";
+  margin-left: -1em;
+  color: rgb(254, 207, 119);
+}
+.icon-close:before {
+  content: "\e60a";
+}
+.icon-video-camera:before {
+  content: "\e914";
+}
+.icon-connection:before {
+  content: "\e91b";
+}
+.icon-mic:before {
+  content: "\e91e";
+}
+.icon-recycle:before {
+  content: "\e9ac";
+}
+.icon-emoji-1:before {
+  content: "\e9df";
+}
+.icon-emoji-2:before {
+  content: "\e9e1";
+}
+.icon-emoji-3:before {
+  content: "\e9e3";
+}
+.icon-emoji-4:before {
+  content: "\e9e5";
+}
+.icon-emoji-5:before {
+  content: "\e9e7";
+}
+.icon-emoji-6:before {
+  content: "\e9e9";
+}
+.icon-emoji-7:before {
+  content: "\e9eb";
+}
+.icon-emoji-8:before {
+  content: "\e9ed";
+}
+.icon-emoji-9:before {
+  content: "\e9ef";
+}
+.icon-emoji-10:before {
+  content: "\e9f1";
+}
+.icon-emoji-11:before {
+  content: "\e9f3";
+}
+.icon-emoji-12:before {
+  content: "\e9f5";
+}
+.icon-emoji-13:before {
+  content: "\e9f7";
+}
+.icon-emoji-14:before {
+  content: "\e9f9";
+}
+.icon-emoji-15:before {
+  content: "\e9fb";
+}
+.icon-emoji-16:before {
+  content: "\e9fd";
+}
+.icon-emoji-17:before {
+  content: "\e9ff";
+}
+.icon-emoji-18:before {
+  content: "\ea01";
+}

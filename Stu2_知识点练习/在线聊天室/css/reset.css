@@ -1,0 +1,105 @@
+@charset "utf-8";
+/*
+	http://meyerweb.com/eric/tools/css/reset/ 
+	v1.0 | 20080212 
+*/
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: middle;
+	background: transparent;
+}
+body {
+	line-height: 1; 
+	-webkit-font-smoothing: antialiased;		/* Fix for webkit rendering */
+	-webkit-text-size-adjust: 100%;				/* Fix for webkit minFont size */
+	-webkit-tap-highlight-color	:rgba(0,0,0,0);	/* Remove highlight on tap event*/
+	-moz-tap-highlight-color	:rgba(0,0,0,0);
+	-ms-tap-highlight-color		:rgba(0,0,0,0);
+	tap-highlight-color			:rgba(0,0,0,0);
+	/* -webkit-touch-callout: none;  
+	-webkit-user-select: none;  
+	-khtml-user-select: none;  
+	-moz-user-select: none;  
+	-ms-user-select: none;  
+	user-select: none; */	
+	/* 上面的css是用来禁止用户选中 */
+	font-family: "Helvetica Neue",\5FAE\8F6F\96C5\9ED1,Tohoma; /* mac字体，微软雅黑，xp字体，宋体有点问题，所以不用，除非自写*/
+}
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+/* remember to define focus styles! */
+:focus { outline: 0; }
+/* remember to highlight inserts somehow! */
+ins { text-decoration: none; }
+del { text-decoration: line-through; }
+/* tables still need 'cellspacing="0"' in the markup */
+table { border-collapse: collapse; border-spacing: 0; }
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  float:none !important;
+}
+table, th, td {
+  vertical-align: middle;
+}
+em,i {font-style:normal;display:inline-block;}
+/* Remove annoying border on linked images. */
+a img { border: none; text-decoration:none; }
+a{text-decoration: none;}
+
+/* Remember to define your own focus styles! */
+:focus { outline: 0; }
+/* #Clearing
+================================================== */
+.clearfix:before, .clearfix:after { 
+	content: ""; 
+	display: table;
+	font-size:0 !important;
+	line-height:0!important;
+	height:0!important;
+}  
+.clearfix:after { clear: both; }
+  
+/* IE 6/7 */  
+.clearfix { *zoom: 1; } 
+
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+input::-ms-clear,input::-ms-reveal{display:none;}
+textarea{resize:none;}
+/* 重置安卓Pad下面input焦点状态白底的样式 */  
+input{
+   -webkit-user-modify: read-write-plaintext-only;
+   -webkit-tap-highlight-color:#3072af;
+}
+input[type="submit"],input[type="reset"]{
+	-webkit-appearance: none;
+}
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner{
+	border:none;padding:0;
+}
+
+/* 视网膜显示屏CSS */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (-Webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (min-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 2) {}

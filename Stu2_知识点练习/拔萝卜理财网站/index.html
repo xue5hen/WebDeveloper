@@ -1,0 +1,527 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>首页-拔萝卜P2F票据理财平台</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/fonts.css">
+	<style type="text/css">
+		.footer{
+			margin-top: 0;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+</head>
+<body onload="indexInit()">
+	<!-- header start -->
+	<div class="header clearfix">
+		<div class="headNav">
+			<div class="wrapper">
+				<ul class="fr">
+					<script>
+						/* 判断用户是否登录 start */
+						var cookie_uid = $.cookie("cookie_uid");
+						var cookie_userName = $.cookie("cookie_userName");
+						var cookie_mobile = $.cookie("cookie_mobile");
+						if (cookie_uid != "" && cookie_uid != undefined && cookie_uid != null) {
+						    if (cookie_userName != "" && cookie_userName != null) {
+						        document.writeln('<li class="onLogin">欢迎<strong>' + cookie_userName + '</strong>来到拔萝卜！<a href="javascript:logout();">[退出]</a>|</li>');
+						    } else {
+						    	document.writeln('<li class="onLogin">欢迎<strong>' + cookie_mobile + '</strong>来到拔萝卜！<a href="javascript:logout();">[退出]</a>|</li>');
+						    }
+						}else{
+							document.writeln('<li class="onLogin"><a href="login.html"><em>登录</em></a>|</li>');
+							document.writeln('<li class="toRegister"><a href="register.html"><em>注册</em></a>|</li>');
+						}
+						/* 判断用户是否登录 end */
+					</script>
+					<li><a href="help/NoviceGuide.html">新手帮助</a>|</li>
+					<li><a href="about/about.html">关于我们</a>|</li>
+					<li><a href="invest/DownloadPage.html" target="_blank"><span class="icon-mobile"></span> 手机APP</a></li>
+				</ul>
+				<p class="fl">
+					<a href="http://weibo.com/u/5662479711" target="_blank"><span class="icon-sina-disc"></span></a>
+					<a href="javascript:void(0);"><span class="icon-weixin-disc"><i class="weixinPopWin"></i></span></a>
+					客服热线： <em>400-825-8626</em> (周一至周五，9:00~18:00)
+				</p>
+			</div>
+		</div>
+		<div class="headMenu">
+			<div class="wrapper">
+				<ul class="fr">
+					<li><a href="index.html" class="cur">首页</a></li>
+					<li>
+						<a href="invest/toFinance.html">开始理财</a>
+						<div class="items" id="financeItems">
+						</div>
+					</li>
+					<li><a href="invest/iHaveBills.html">我有票据</a></li>
+					<li><a href="invest/ProductIntroduce.html">产品介绍</a></li>
+					<li>
+						<a href="about/about.html">关于拔萝卜</a>
+						<div class="items">
+							<a href="about/about.html?index=1">关于拔萝卜</a>
+							<a href="about/about.html?index=2">安全保障</a>
+							<a href="about/about.html?index=3">媒体报道</a>
+							<a href="about/about.html?index=4">招贤纳士</a>
+							<a href="about/about.html?index=5">联系我们</a>
+						</div>
+					</li>
+					<li>
+						<a href="myAccount/myAccount.html">我的账户</a>
+						<div class="items">
+							<a href="myAccount/myAccount.html?index=1">账户主页</a>
+							<a href="myAccount/myAccount.html?index=2">银行卡管理</a>
+							<a href="myAccount/myAccount.html?index=3">萝卜币管理</a>
+							<a href="myAccount/myAccount.html?index=4">消息中心</a>
+							<a href="myAccount/myAccount.html?index=5">更多设置</a>
+							<a href="myAccount/myAccount.html?index=6">活动中心</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- header end -->
+	<!-- main start -->
+	<div class="headBanner">
+		<div class="wrapper">
+			<a href="invest/DownloadPage.html" class="downloadApp">立即下载</a>
+			<div class="goRegLogin">
+				<p>拔萝卜年化收益率达到</p>
+				<p><span><strong>10.5</strong>%</span></p>
+				<p><a href="login.html">马上登录</a></p>
+				<p>没有账号？<a href="register.html"><span>注册</span></a></p>
+				<p><span class="icon-protect"></span><em>拔萝卜“银票苗”项目浙商银行保管</em></p>
+			</div>
+			<p class="newInfo">
+				<span class="icon-bell-solid"></span>
+				最新公告
+				<i id="newInfoTitle"><a href="">7%-14%预期年化收益率，安全、省心、高收益的组团投资方式</a></i>
+				<em id="newInfoTime">2015-06-30</em>
+				<a href="about/platformInfo.html?t=1">更多公告&gt;&gt;</a>
+			</p>
+		</div>
+	</div>
+	<div class="baluoboInfo">
+		<ul class="wrapper">
+			<li>
+				<p class="imgBox">
+					<img src="images/index/infoImg01.png">
+				</p>
+				<p>
+					年化收益率最高10%+，<br>
+					约是余额宝2倍，<br>
+					约是银行活期20倍。
+				</p>
+			</li>
+			<li>
+				<p class="imgBox">
+					<img src="images/index/infoImg02.png">
+				</p>
+				<p>
+					P2F模式仅对接银行，<br>
+					到期银行无条件兑付投资本息，<br>
+					票据均由浙商银行保管+托收。
+				</p>
+			</li>
+			<li>
+				<p class="imgBox">
+					<img src="images/index/infoImg03.png">
+				</p>
+				<p>
+					诺顿全面捍卫用户隐私，<br>
+					阿里金融云专属数据备份，<br>
+					安全稳定性达99.9999%。
+				</p>
+			</li>
+			<li>
+				<p>扫描二维码</p>
+				<p>下载<a href="invest/DownloadPage.html" target="_blank"><span class="cur">拔萝卜理财APP</span></a></p>
+				<p><a href="invest/ProductIntroduce.html" target="_blank">了解详情<span class="icon-right-arrow-triangle"></span></a></p>
+				<p><a href="https://itunes.apple.com/cn/app/ba-luo-bo-li-cai/id1050564862?l=en&mt=8" target="_blank" title="iPhone"><span class="icon-apple-disc"></span>iOS 端下载</a></p>
+				<p><a href="http://zhushou.360.cn/detail/index/soft_id/3138682?recrefer=SE_D_拔萝卜" target="_blank" title="Android"><span class="icon-android-disc"></span>Android 端下载</a></p>
+			</li>
+		</ul>
+	</div>
+	<div class="wrapper">
+		<ul class="sectionIndex novice_index">
+			<li>
+				<h3>新手标</h3>
+				<a href="invest/toFinance.html?gcId=11">查看更多</a>
+			</li>
+			<li>
+				<p class="productName">新手标第100期</p>
+				<i class="cash">到期由招商银行无条件兑换</i>
+			</li>
+			<li>
+				<p>年化收益<span class="yieldRate">11.18%</span><em>（起投金额100元）</em></p>
+				<i class="dueTime">期限12天（实际天数与起息规则有关）</i>
+			</li>
+			<li class="progressBar">
+				<p><span>0%</span></p>				
+				<em>销售进度</em>
+			</li>
+			<li>
+				<p class="surplusMoney">可购金额：1990元</p>
+				<a href="javascript:void(0);" class="gotoBuyIndex">立即购买</a>
+			</li>
+		</ul>
+		<ul class="sectionIndex current_index">
+			<li>
+				<h3>活期产品</h3>
+				<a href="invest/toFinance.html?gcId=13">查看更多</a>
+			</li>
+			<li>
+				<p>年化收益<span class="yieldRate">7.18%</span><em>（起投金额100元）</em></p>
+				<i>T+1起息 按日付息 申请赎回 单日到账</i>
+			</li>
+			<li>
+				<p>开放额度<span class="surplusMoney">30</span>万</p>
+			</li>
+			<li></li>
+			<li>
+				<p class="">每人限购：10万</p>
+				<a href="javascript:void(0);" class="gotoBuyIndex">立即购买</a>
+			</li>
+		</ul>
+		<ul class="sectionIndex fixedDeposit_index">
+			<!-- <li>
+				<h3>定期产品</h3>
+				<p>锁定期是150天，150天后可以提现。提现是T+3节假日顺延。</p>
+				<a href="invest/toFinance.html?gcId=10">查看更多</a>
+			</li>
+			<li>
+				<p class="productName">定期产品第<span>45</span>期</p>
+				<p><span><strong>7.88</strong>%</span></p>
+				<p><em>预计年化收益</em></p>
+				<p><i>投资期限 43 天</i></p>
+				<a href="javascript:void(0);" class="gotoBuyIndex">立即购买</a>
+			</li>
+			<li>
+				<p class="productName">定期产品第<span>45</span>期</p>
+				<p><span><strong>7.88</strong>%</span></p>
+				<p><em>预计年化收益</em></p>
+				<p><i>投资期限 43 天</i></p>
+				<a href="javascript:void(0);" class="gotoBuyIndex">立即购买</a>
+			</li>
+			<li>
+				<p class="productName">定期产品第<span>45</span>期</p>
+				<p><span><strong>7.88</strong>%</span></p>
+				<p><em>预计年化收益</em></p>
+				<p><i>投资期限 43 天</i></p>
+				<a href="javascript:void(0);" class="gotoBuyIndex">立即购买</a>
+			</li> -->
+		</ul>
+		<div class="floatBox clearfix">
+			<div class="taelsSeedling_index fl">
+				<h2>银票产品</h2>
+				<table>
+					<tbody id="taelsSeedlingNew">
+						<!-- <tr>
+							<td>
+								<p><strong>银票苗第174期</strong></p>
+								<p class="cash">到期由浙商银行苏州分行会计</p>
+							</td>
+							<td>
+								<p><span><b>7.18</b>%</span></p>
+								<p>预计年化收益</p>
+							</td>
+							<td>
+								<p><i>29天</i></p>
+								<p>投资期限</p>
+							</td>
+							<td>
+								<p><i>3万</i></p>
+								<p>可投金额</p>
+							</td>
+							<td>
+								<p class="progressBar"><em></em></p>
+								<p><a href="" class="gotoBuyIndex">立即抢购</a></p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p><strong>银票苗第174期</strong></p>
+								<p class="cash">到期由浙商银行苏州分行会计</p>
+							</td>
+							<td>
+								<p><span><b>7.18</b>%</span></p>
+								<p>预计年化收益</p>
+							</td>
+							<td>
+								<p><i>29天</i></p>
+								<p>投资期限</p>
+							</td>
+							<td>
+								<p><i>3万</i></p>
+								<p>可投金额</p>
+							</td>
+							<td>
+								<p class="progressBar"><em></em></p>
+								<p><a href="" class="gotoBuyIndex">立即抢购</a></p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p><strong>银票苗第174期</strong></p>
+								<p class="cash">到期由浙商银行苏州分行会计</p>
+							</td>
+							<td>
+								<p><span><b>7.18</b>%</span></p>
+								<p>预计年化收益</p>
+							</td>
+							<td>
+								<p><i>29天</i></p>
+								<p>投资期限</p>
+							</td>
+							<td>
+								<p><i>3万</i></p>
+								<p>可投金额</p>
+							</td>
+							<td>
+								<p class="progressBar"><em></em></p>
+								<p><a href="" class="gotoBuyIndex">立即抢购</a></p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p><strong>银票苗第174期</strong></p>
+								<p class="cash">到期由浙商银行苏州分行会计</p>
+							</td>
+							<td>
+								<p><span><b>7.18</b>%</span></p>
+								<p>预计年化收益</p>
+							</td>
+							<td>
+								<p><i>29天</i></p>
+								<p>投资期限</p>
+							</td>
+							<td>
+								<p><i>3万</i></p>
+								<p>可投金额</p>
+							</td>
+							<td>
+								<p class="progressBar"><em></em></p>
+								<p><a href="" class="gotoBuyIndex">立即抢购</a></p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p><strong>银票苗第174期</strong></p>
+								<p class="cash">到期由浙商银行苏州分行会计</p>
+							</td>
+							<td>
+								<p><span><b>7.18</b>%</span></p>
+								<p>预计年化收益</p>
+							</td>
+							<td>
+								<p><i>29天</i></p>
+								<p>投资期限</p>
+							</td>
+							<td>
+								<p><i>3万</i></p>
+								<p>可投金额</p>
+							</td>
+							<td>
+								<p class="progressBar"><em></em></p>
+								<p><a href="" class="gotoBuyIndex">立即抢购</a></p>
+							</td>
+						</tr> -->
+					</tbody>
+				</table>
+			</div>
+			<div class="platformNotice_index fr">
+				<h2>平台公告</h2>
+				<ul id="platformNoticeNew">
+					<!-- <li><a href="#">·&nbsp;《今日头条》：票据理财领先平台</a></li>
+					<li><a href="#">·&nbsp;7月8日服务器维护公告 </a></li>
+					<li><a href="#">·&nbsp;票据理财平台怎么选，高手支招</a></li>
+					<li><a href="#">·&nbsp;票据客端午小长假运营安排 </a></li>
+					<li><a href="#">·&nbsp;票据理财安全性或成王牌 </a></li>
+					<li><a href="#">·&nbsp;7月8日服务器维护公告</a></li>
+					<li><a href="#">·&nbsp;票据理财平台怎么选，高手支招</a></li>
+					<li><a href="#">·&nbsp;票据客端午小长假运营安排</a></li>
+					<li><a href="#">·&nbsp;票据理财安全性或成王牌</a></li> -->
+				</ul>
+				<a href="#"><img src="images/toFinance/financialGame.jpg" alt="" /></a>
+			</div>
+		</div>
+		<div class="floatBox clearfix">
+			<div class="mediaReports_index fl">
+				<h2>相关新闻</h2>
+				<ul id="mediaReportsNew">
+					<!-- <li>
+						<img src="">
+						<p class="reportsTitle">
+							票据理财“火眼金睛”术
+						</p>
+						<p class="reportsInfo">
+							安全是投资人关心的重点，拔萝卜教您炼就票据理财“火眼金睛”术...
+						</p>
+					</li>
+					<li>
+						<img src="">
+						<p class="reportsTitle">
+							票据理财“火眼金睛”术
+						</p>
+						<p class="reportsInfo">
+							安全是投资人关心的重点，拔萝卜教您炼就票据理财“火眼金睛”术...
+						</p>
+					</li>
+					<li>
+						<img src="">
+						<p class="reportsTitle">
+							票据理财“火眼金睛”术
+						</p>
+						<p class="reportsInfo">
+							安全是投资人关心的重点，拔萝卜教您炼就票据理财“火眼金睛”术...
+						</p>
+					</li> -->
+				</ul>
+			</div>
+			<div class="financialQA_index fr">
+				<h2>理财问答<a href="help/financialQA.html">更多&gt;&gt;</a></h2>
+				<ul id="financialQAHot">
+					<!-- <li>
+						<p class="question">
+							<a href="">什么是票据托收</a>
+						</p>
+						<p class="answer">
+							票据托收是指银行按照收款人委托以其持有的银行承...
+						</p>
+					</li>
+					<li>
+						<p class="question">
+							<a href="">什么是票据托收</a>
+						</p>
+						<p class="answer">
+							票据托收是指银行按照收款人委托以其持有的银行承...
+						</p>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+		<div class="iHaveBill_index">
+			<h2>我有票据</h2>
+			<ul class="billProcess clearfix">
+				<li>
+					<img src="images/iHaveBills/contactService.png">
+					<p>联系客服</p>
+				</li>
+				<li>
+					<div class="rightArrow"></div>
+				</li>
+				<li>
+					<img src="images/iHaveBills/offlineTalks.png">
+					<p>线下洽谈</p>
+				</li>
+				<li>
+					<div class="rightArrow"></div>
+				</li>
+				<li>
+					<img src="images/iHaveBills/materialsCheck.png">
+					<p>材料审核</p>
+				</li>
+				<li>
+					<div class="rightArrow"></div>
+				</li>
+				<li>
+					<img src="images/iHaveBills/signAgreement.png">
+					<p>签署协议</p>
+				</li>
+				<li>
+					<div class="rightArrow"></div>
+				</li>
+				<li>
+					<img src="images/iHaveBills/financeSuccess.png">
+					<p>融资成功</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="partner_index clearfix">
+		<div class="wrapper">
+			<h2>合作伙伴</h2>
+			<p>
+				<img src="images/index/partner01.jpg">
+				<img src="images/index/partner02.jpg">
+				<img src="images/index/partner03.jpg">
+				<img src="images/index/partner04.jpg">
+				<img src="images/index/partner05.jpg">
+				<img src="images/index/partner06.jpg">
+				<img src="images/index/partner07.jpg">
+			</p>
+		</div>
+	</div>
+	<!-- footer start -->
+	<div class="footer clearfix">
+		<div class="footInfo">
+			<div class="wrapper">
+				<ul class="fr appDownload">
+					<li>
+						<img src="images/public/weixin.jpg" alt="拔萝卜微信">
+						<p>微信关注我们</p>
+					</li>
+					<li>
+						<img src="images/public/appDownload.jpg" alt="拔萝卜客户端">
+						<p>拔萝卜客户端下载</p>
+					</li>
+					<li>
+						<a href="https://itunes.apple.com/cn/app/ba-luo-bo-li-cai/id1050564862?l=en&mt=8" target="_blank" title="iPhone"><span class="icon-apple"></span> iPhone</a>
+						<a href="http://zhushou.360.cn/detail/index/soft_id/3138682?recrefer=SE_D_拔萝卜" target="_blank" title="Android"><span class="icon-android"></span> Android</a>
+					</li>
+				</ul>
+				<div class="fl">
+					<div class="footLogo fl"></div>
+					<div class="contactInfo fl">
+						<p>客服热线：周一到周五 9:00~18:00</p>
+						<p class="phone">400-825-8626</p>
+						<p>官方QQ群：498781357</p>
+						<p>咨询邮箱：service@baluobo.com</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footNav">
+			<div class="wrapper">
+				<div class="copyright fr">
+					<p>
+						拔萝卜版权所有 2016 www.baluobo.com | 备案号：津ICP备15004993号-1 | 站长统计
+					</p>
+					<p>
+						<img src="images/public/authentication.png" alt="认证">
+					</p>
+				</div>
+				<ul class="fl">
+					<li><a href="about/about.html">关于拔萝卜</a>|</li>
+					<li><a href="about/about.html?index=4">招贤纳士</a>|</li>
+					<li><a href="about/about.html?index=5">联系我们</a>|</li>
+					<li><a href="invest/UserProtocol.html">用户协议</a>|</li>
+					<li><a href="help/financialQA.html">理财问答</a>|</li>
+					<li><a href="help/NoviceGuide.html">新手指引</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- footer end -->
+	<!-- 悬浮侧边栏 start -->
+	<ul class="fixedSideBar">
+		<li><a href="javascript:void(0);" class="icon-qr-code"><i class="appQrCode"></i></a></li>
+		<li><a href="javascript:void(0);" class="icon-weixin"><i class="weixinPopWin"></i></a></li>
+		<li><a href="http://wpa.qq.com/msgrd?v=3&uin=1223967410&site=qq&menu=yes" target="_blank" title="客服QQ交谈" rel="nofollow" class="icon-qq"></a></li>
+		<li><a href="javascript:void(0);" class="icon-up-arrow backTop" title="回到顶部"></a></li>
+	</ul>
+	<!-- 悬浮侧边栏 end -->
+	<script src="js/md5.js"></script>
+	<script src="js/public.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>

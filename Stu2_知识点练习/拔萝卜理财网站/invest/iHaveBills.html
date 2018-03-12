@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>我有票据-拔萝卜P2F票据理财平台</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="../css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<link rel="stylesheet" type="text/css" href="../css/fonts.css">
+	<link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.10.4.custom.css">
+	<style type="text/css">
+		.headMenu ul>li:nth-child(3)>a{
+			color:#ff794f;
+		}
+	</style>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+</head>
+<body onload="getVCodeImg()">
+	<!-- header start -->
+	<script src="../js/_head.js"></script>
+	<!-- header end -->
+	<!-- main start -->
+	<div class="wrapper">
+		<div class="onlineEntry">
+			<h2>在线录入</h2>
+			<ul class="billProcess clearfix">
+				<li>
+					<img src="../images/iHaveBills/contactService.png">
+					<p>联系客服</p>
+				</li>
+				<li>
+					<div class="rightArrow"></div>
+				</li>
+				<li>
+					<img src="../images/iHaveBills/offlineTalks.png">
+					<p>线下洽谈</p>
+				</li>
+				<li>
+					<div class="rightArrow"></div>
+				</li>
+				<li>
+					<img src="../images/iHaveBills/materialsCheck.png">
+					<p>材料审核</p>
+				</li>
+				<li>
+					<div class="rightArrow"></div>
+				</li>
+				<li>
+					<img src="../images/iHaveBills/signAgreement.png">
+					<p>签署协议</p>
+				</li>
+				<li>
+					<div class="rightArrow"></div>
+				</li>
+				<li>
+					<img src="../images/iHaveBills/financeSuccess.png">
+					<p>融资成功</p>
+				</li>
+			</ul>
+			<form class="billForm">
+				<label>票面金额（元）<input type="text" name="ticketMoney" id="ticketMoney" placeholder="请输入您的票面全额"></label>
+				<label class="fr">到期时间<input type="text" name="dueTime" id="dueTime" placeholder="请输入到期时间" readonly="readonly"></label>
+				<label for="billPhoto">票据图片<input type="file" name="billPhoto" id="billPhoto"></label>
+				<label class="fr">承兑银行类型<input type="text" name="bankType" id="bankType" placeholder="请选择银行类型" readonly="readonly">
+					<em></em>
+					<ul class="bankSelectList">
+						<li val="0" class="bankItem">国股银行</li>
+						<li val="1" class="bankItem">城商银行</li>
+						<li val="2" class="bankItem">农商银行</li>
+						<li val="3" class="bankItem">农信银行</li>
+						<li val="4" class="bankItem">村镇银行</li>
+						<li val="5" class="bankItem">其他</li>
+					</ul>
+				</label>
+				<div class="personInfo">
+					<label>联系人<input type="text" name="fullName" id="fullName" placeholder="请输入联系人姓名"></label>
+					<br>
+					<label>手机号码<input type="text" name="phone" id="phone" placeholder="请输入联系人电话"></label>
+					<br>
+					<label>验证码<input type="text" name="vCode" id="vCode" placeholder="验证码"><img src="" class="vCodeImg"></label>
+				</div>
+				<label><input type="button" value="提交认证" onclick="submitBill()" class="submitBtn"></label>
+			</form>
+		</div>
+		<div class="telAppoint">
+			<h2>电话预约</h2>
+			<p>投资人咨询<span class="icon-phone"></span>客服电话<em>400-825-8626</em><span class="icon-mail"></span>邮箱<em>service@baluobo.com</em></p>
+		</div>
+		<!-- 灯箱 start -->
+		<div class="mask"></div>
+		<div class="popWin">
+			<p><span class="popWinTitle">提交成功</span><button class="closeBtn fr">&times;</button></p>
+			<div class="content">
+				<p>我们会尽快联系您</p>
+			</div>
+		</div>
+		<!-- 灯箱 end -->
+	</div>
+	<!-- main end -->
+	<!-- footer start -->
+	<script src="../js/_foot.js"></script>
+	<!-- footer end -->
+	<script src="../js/public.js"></script>
+	<script src="../js/main.js"></script>
+	<script src="../js/jquery-ui-1.10.4.custom.js"></script>
+	<script type="text/javascript">
+		$("#dueTime").datepicker({
+			dateFormat:"yy-mm-dd",
+			showMonthAfterYear:true,
+			monthNames: ['- 01', '- 02', '- 03', '- 04', '- 05', '- 06', '- 07', '- 08', '- 09', '- 10', '- 11', '- 12'],
+            dayNamesMin: ['日','一','二','三','四','五','六']
+		});
+		$("#bankType").on("click",function(){
+			$(".bankSelectList").toggle();
+		});
+		$(".bankSelectList>.bankItem").on("click",function(){
+			$("#bankType").val($(this).html());
+			$(this).addClass("selected").siblings().removeClass("selected");
+		});
+		enterKeyEvent();
+	</script>
+</body>
+</html>

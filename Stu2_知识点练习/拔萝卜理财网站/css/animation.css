@@ -1,0 +1,169 @@
+/*按钮*/
+.iphone:hover,
+.iAndroid:hover { 
+	-webkit-animation:fadein 1s ease backwards;
+	-moz-animation:fadein 1s ease backwards;
+	-ms-animation:fadein 1s ease backwards;
+	animation:fadein 1s ease backwards;
+}
+@-webkit-keyframes fadein{
+    0%{opacity:0.5;}
+    100%{opacity:1;}
+}
+@-moz-keyframes fadein{
+    0%{opacity:0.5;}
+    100%{opacity:1;}
+}
+@-ms-keyframes fadein{
+    0%{opacity:0.5;}
+    100%{opacity:1;}
+}
+@keyframes fadein{
+    0%{opacity:0.5;}
+    100%{opacity:1;}
+}
+
+/*淡入-从上*/
+.a-fadeinT{
+	-webkit-animation:fadeinT 1s ease-out backwards;
+	-moz-animation:fadeinT 1s ease-out backwards;
+	-ms-animation:fadeinT 1s ease-out backwards;
+	animation:fadeinT 1s ease-out backwards;
+}
+@-webkit-keyframes fadeinT{
+    0%{opacity:0;-webkit-transform:translateY(-100px);}
+    100%{opacity:1;-webkit-transform:translateY(0);}
+}
+@-moz-keyframes fadeinT{
+    0%{opacity:0;-moz-transform:translateY(-100px);}
+    100%{opacity:1;-moz-transform:translateY(0);}
+}
+@-ms-keyframes fadeinT{
+    0%{opacity:0;-ms-transform:translateY(-100px);}
+    100%{opacity:1;-ms-transform:translateY(0);}
+}
+@keyframes fadeinT{
+    0%{opacity:0;transform:translateY(-100px);}
+    100%{opacity:1;transform:translateY(0);}
+}
+
+/*淡入-从下*/
+.a-fadeinB{
+	-webkit-animation:fadeinB 1s ease-out backwards;
+	-moz-animation:fadeinB 1s ease-out backwards;
+	-ms-animation:fadeinB 1s ease-out backwards;
+	animation:fadeinB 1s ease-out backwards;
+}
+@-webkit-keyframes fadeinB{
+    0%{-webkit-transform:translateY(200px);}
+    100%{-webkit-transform:translateY(0);}
+}
+@-moz-keyframes fadeinB{
+    0%{-moz-transform:translateY(200px);}
+    100%{-moz-transform:translateY(0);}
+}
+@-ms-keyframes fadeinB{
+    0%{-ms-transform:translateY(200px);}
+    100%{-ms-transform:translateY(0);}
+}
+@keyframes fadeinB{
+    0%{transform:translateY(200px);}
+    100%{transform:translateY(0);}
+}
+
+/*淡入-从左*/
+.a-fadeinL{
+	-webkit-animation:fadeinL 1s ease-out backwards;
+	-moz-animation:fadeinL 1s ease-out backwards;
+	-ms-animation:fadeinL 1s ease-out backwards;
+	animation:fadeinL 1s ease-out backwards;
+}
+@-webkit-keyframes fadeinL{
+    0%{opacity:0;-webkit-transform:translateX(-100px);}
+    100%{opacity:1;-webkit-transform:translateX(0);}
+}
+@-moz-keyframes fadeinL{
+    0%{opacity:0;-moz-transform:translateX(-100px);}
+    100%{opacity:1;-moz-transform:translateX(0);}
+}
+@-ms-keyframes fadeinL{
+    0%{opacity:0;-ms-transform:translateX(-100px);}
+    100%{opacity:1;-ms-transform:translateX(0);}
+}
+@keyframes fadeinL{
+    0%{opacity:0;transform:translateX(-100px);}
+    100%{opacity:1;transform:translateX(0);}
+}
+
+/*淡入-从右*/
+.a-fadeinR{
+	-webkit-animation:fadeinR 1s ease-out backwards;
+	-moz-animation:fadeinR 1s ease-out backwards;
+	-ms-animation:fadeinR 1s ease-out backwards;
+	animation:fadeinR 1s ease-out backwards;
+}
+@-webkit-keyframes fadeinR{
+    0%{opacity:0;-webkit-transform:translateX(100px);}
+    100%{opacity:1;-webkit-transform:translateX(0);}
+}
+@-moz-keyframes fadeinR{
+    0%{opacity:0;-moz-transform:translateX(100px);}
+    100%{opacity:1;-moz-transform:translateX(0);}
+}
+@-ms-keyframes fadeinR{
+    0%{opacity:0;-ms-transform:translateX(100px);}
+    100%{opacity:1;-ms-transform:translateX(0);}
+}
+@keyframes fadeinR{
+    0%{opacity:0;transform:translateX(100px);}
+    100%{opacity:1;transform:translateX(0);}
+}
+
+/*淡出-从左*/
+.a-fadeoutL{
+	-webkit-animation:fadeoutL 1s ease-out backwards;
+	-moz-animation:fadeoutL 1s ease-out backwards;
+	-ms-animation:fadeoutL 1s ease-out backwards;
+	animation:fadeoutL 1s ease-out backwards;
+}
+@-webkit-keyframes fadeoutL{
+    0%{opacity:0;-webkit-transform:translateX(100px);}
+    100%{opacity:1;-webkit-transform:translateX(0);}
+}
+@-moz-keyframes fadeoutL{
+    0%{opacity:0;-moz-transform:translateX(100px);}
+    100%{opacity:1;-moz-transform:translateX(0);}
+}
+@-ms-keyframes fadeoutL{
+    0%{opacity:0;-ms-transform:translateX(100px);}
+    100%{opacity:1;-ms-transform:translateX(0);}
+}
+@keyframes fadeoutL{
+    0%{opacity:0;transform:translateX(100px);}
+    100%{opacity:1;transform:translateX(0);}
+}
+
+/*淡出-从右*/
+.a-fadeoutR{
+	-webkit-animation:fadeoutR 1s ease-out backwards;
+	-moz-animation:fadeoutR 1s ease-out backwards;
+	-ms-animation:fadeoutR 1s ease-out backwards;
+	animation:fadeoutR 1s ease-out backwards;
+}
+@-webkit-keyframes fadeoutR{
+    0%{opacity:0;-webkit-transform:translateX(-100px);}
+    100%{opacity:1;-webkit-transform:translateX(0);}
+}
+@-moz-keyframes fadeoutR{
+    0%{opacity:0;-moz-transform:translateX(-100px);}
+    100%{opacity:1;-moz-transform:translateX(0);}
+}
+@-ms-keyframes fadeoutR{
+    0%{opacity:0;-ms-transform:translateX(-100px);}
+    100%{opacity:1;-ms-transform:translateX(0);}
+}
+@keyframes fadeoutR{
+    0%{opacity:0;transform:translateX(-100px);}
+    100%{opacity:1;transform:translateX(0);}
+}
+
